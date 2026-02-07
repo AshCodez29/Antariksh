@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cosmic Explorers</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    <script type="module" src="https://unpkg.com/@splinetool/viewer@1.12.39/build/spline-viewer.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Orbitron', sans-serif;
+            overflow-x: hidden;
+            color: thistle;
+            background: transparent;
+        }
+
+        .video-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            min-width: 100%;
+            min-height: 100%;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            object-fit: cover;
+        }
+
+        /* Navbar Styles */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            padding: 20px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(216, 191, 216, 0.2);
+        }
+
+        .img-container{
+            position: sticky;
+            top: 50%;
+            left: 50%;
+            margin-top: 300px;
+            transform: translate(-50%, -50%);
+            width: 600px;          /* adjust size */
+            opacity: 0.5;         /* watermark feel */
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+        }
+
+        .nav-links li a {
+            color: thistle;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .nav-links li a:hover {
+            color: #ffdd57;
+            text-shadow: 0 0 10px rgba(255, 221, 87, 0.7);
+        }
+
+        /* Main Content */
+        .main-content {
+            min-height: 100vh;
+            padding-top: 100px;
+            position: relative;
+        }
+
+        .hero-section {
+            text-align: center;
+            padding: 60px 20px;
+            background: rgba(0, 0, 0, 0.4);
+            margin: 0 50px 40px;
+            border-radius: 15px;
+        }
+
+        .hero-section h1 {
+            font-size: 60px;
+            margin-bottom: 20px;
+            color: #ffdd57;
+            text-shadow: 0 0 30px rgba(255, 221, 87, 0.6);
+            font-weight: 900;
+        }
+
+        .hero-section p {
+            font-size: 24px;
+            margin-bottom: 40px;
+            color: thistle;
+        }
+
+        /* About Section */
+        .about-section {
+            background: rgba(74, 50, 139, 0.26);
+            padding: 50px;
+            margin: 40px 50px;
+            border-radius: 15px;
+            text-align: center;
+        }
+
+        .about-section h2 {
+            font-size: 40px;
+            color: #ffdd57;
+            margin-bottom: 30px;
+            font-weight: 900;
+        }
+
+        .about-section p {
+            font-size: 18px;
+            line-height: 1.8;
+            max-width: 900px;
+            margin: 0 auto;
+            color: thistle;
+        }
+
+        /* Blackhole Facts Section */
+        .blackhole-facts-section {
+            padding: 60px 50px;
+            margin: 40px 50px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .blackhole-facts-section h2 {
+            font-size: 50px;
+            color: #ffdd57;
+            margin-bottom: 50px;
+            text-align: center;
+            font-weight: 900;
+            text-shadow: 0 0 30px rgba(255, 221, 87, 0.6);
+        }
+
+        .facts-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .fact-card {
+            background: rgba(74, 50, 139, 0.26);
+            padding: 25px;
+            border-radius: 10px;
+            border: 1px solid rgba(216, 191, 216, 0.2);
+            transition: all 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            position: relative;
+        }
+
+        .fact-card.sucked {
+            animation: suckIntoBlackhole 1.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+            z-index: 1000;
+        }
+
+        @keyframes suckIntoBlackhole {
+            0% {
+                transform: scale(1) translate(0, 0) rotate(0deg);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(0.5) rotate(180deg);
+                opacity: 0.7;
+            }
+            100% {
+                transform: scale(0) translate(var(--target-x), var(--target-y)) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        .fact-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 5px 20px rgba(138, 43, 226, 0.4);
+            border-color: rgba(255, 221, 87, 0.4);
+        }
+
+        .fact-card h3 {
+            color: #ffdd57;
+            font-size: 22px;
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+
+        .fact-card p {
+            color: thistle;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        
+        /* Fullscreen Overlay for Content */
+        .content-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 2000;
+            display: none;
+            overflow-y: auto;
+        }
+
+        .content-overlay.active {
+            display: block;
+            animation: expandFromCenter 0.8s ease-out;
+        }
+
+        @keyframes expandFromCenter {
+            0% {
+                clip-path: circle(0% at 50% 50%);
+            }
+            100% {
+                clip-path: circle(150% at 50% 50%);
+            }
+        }
+
+        .overlay-content {
+            padding: 120px 50px 80px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .close-btn {
+            position: fixed;
+            top: 30px;
+            right: 50px;
+            font-size: 40px;
+            color: #ffdd57;
+            cursor: pointer;
+            z-index: 2001;
+            transition: all 0.3s ease;
+        }
+
+        .close-btn:hover {
+            transform: rotate(90deg);
+            color: #ff6b6b;
+        }
+
+        .overlay-content h2 {
+            font-size: 50px;
+            color: #ffdd57;
+            margin-bottom: 40px;
+            text-align: center;
+            font-weight: 900;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .content-card {
+            background: rgba(74, 50, 139, 0.26);
+            padding: 30px;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(216, 191, 216, 0.2);
+        }
+
+        .content-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(138, 43, 226, 0.4);
+        }
+
+        .content-card h3 {
+            color: #ffdd57;
+            font-size: 24px;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .content-card p {
+            color: thistle;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(0, 0, 0, 0.6);
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 60px;
+            border-top: 1px solid rgba(216, 191, 216, 0.2);
+        }
+
+        footer p {
+            color: thistle;
+            font-size: 14px;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            nav {
+                padding: 15px 20px;
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .nav-links {
+                gap: 20px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .hero-section h1 {
+                font-size: 40px;
+            }
+
+            .facts-content {
+                grid-template-columns: 1fr;
+            }
+
+            .spline-viewer-wrapper {
+                width: 250px;
+                height: 250px;
+                bottom: 20px;
+                right: 20px;
+            }
+
+            .close-btn {
+                right: 20px;
+                top: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Background Video -->
+<video autoplay muted loop class="video-bg">
+    <source src="blue_nova.mp4" type="video/mp4">
+    <!-- Add your video source here -->
+</video>
+<div class="logo">
+    <img src="logo.png" class="img-container">
+</div>
+<!-- Transparent Navbar -->
+<nav>
+    <ul class="nav-links">
+        <li><a onclick="openContent('home')">Home</a></li>
+        <li><a onclick="openContent('events')">Events</a></li>
+        <li><a onclick="openContent('domains')">Domains</a></li>
+        <li><a onclick="openContent('news')">News</a></li>
+        <li><a onclick="openContent('contact')">Contact</a></li>
+    </ul>
+</nav>
+
+<!-- Main Content -->
+<div class="main-content">
+    <div class="hero-section">
+        <h1>EXPLORE THE COSMOS</h1>
+        <p>Journey Beyond the Stars</p>
+    </div>
+
+    <!-- About Section -->
+    <div class="about-section">
+        <h2>ABOUT US</h2>
+        <p>
+            Welcome to Antariksh Club, your gateway to the wonders of space and astronomy. 
+            We are a community of passionate space enthusiasts, researchers, and dreamers dedicated 
+            to exploring the mysteries of the universe. From celestial events to cutting-edge space 
+            technology, we bring you closer to the cosmos through engaging content, interactive events, 
+            and collaborative research. Join us on this extraordinary journey as we push the boundaries 
+            of human knowledge and venture into the infinite expanse of space.
+        </p>
+    </div>
+
+    <!-- Blackhole Facts Section -->
+    <div class="blackhole-facts-section">
+        <h2>FASCINATING BLACK HOLE FACTS</h2>
+        <div class="facts-content">
+            <div class="fact-card">
+                <h3> Event Horizon</h3>
+                <p>The event horizon is the point of no return around a black hole. Once anything crosses this boundary, not even light can escape the immense gravitational pull.</p>
+            </div>
+            <div class="fact-card">
+                <h3> Time Dilation</h3>
+                <p>Time moves slower near a black hole due to extreme gravity. An observer near the event horizon would experience time differently than someone far away.</p>
+            </div>
+            <div class="fact-card">
+                <h3>Spaghettification</h3>
+                <p>Objects falling into a black hole are stretched and compressed by tidal forces, a process scientists call "spaghettification" due to the noodle-like stretching.</p>
+            </div>
+            <div class="fact-card">
+                <h3> Supermassive Giants</h3>
+                <p>At the center of most galaxies, including our Milky Way, lies a supermassive black hole millions to billions times more massive than our Sun.</p>
+            </div>
+            <div class="fact-card">
+                <h3> Hawking Radiation</h3>
+                <p>Stephen Hawking theorized that black holes emit radiation and can eventually evaporate over trillions of years, challenging the idea that nothing escapes.</p>
+            </div>
+            <div class="fact-card">
+                <h3>Accretion Disk</h3>
+                <p>Matter spiraling into a black hole forms a glowing accretion disk that can shine brighter than entire galaxies, making black holes visible from across the universe.</p>
+            </div>
+        </div>
+    </div>
+
+   
+
+<!-- Footer -->
+<footer>
+    <p>© 2025 Antariksh VI | Designed with Passion for Space Exploration</p>
+    <p>Journey to the Stars</p>
+</footer>
+
+<!-- Content Overlays -->
+<div id="eventsOverlay" class="content-overlay">
+    <div class="close-btn" onclick="closeContent('eventsOverlay')">×</div>
+    <div class="overlay-content">
+        <h2>UPCOMING SPACE EVENTS</h2>
+        <div class="content-grid">
+            <div class="content-card">
+                <h3>Stargazing Night</h3>
+                <p>Join us for an evening of telescope observation and constellation mapping. Witness the beauty of distant galaxies and nebulae.</p>
+            </div>
+            <div class="content-card">
+                <h3>Rocket Launch Workshop</h3>
+                <p>Learn the fundamentals of rocketry and build your own model rocket. Hands-on experience with aerospace engineering.</p>
+            </div>
+            <div class="content-card">
+                <h3>Astrophotography Seminar</h3>
+                <p>Master the art of capturing the night sky. Professional astronomers share their techniques and equipment recommendations.</p>
+            </div>
+            <div class="content-card">
+                <h3>Mars Rover Challenge</h3>
+                <p>Design and program autonomous rovers in our annual competition. Simulate real Mars mission scenarios.</p>
+            </div>
+            <div class="content-card">
+                <h3>Space Tech Expo</h3>
+                <p>Explore the latest innovations in space technology. Interactive exhibits from leading aerospace companies.</p>
+            </div>
+            <div class="content-card">
+                <h3>Planetarium Show</h3>
+                <p>Immersive journey through the solar system. Educational entertainment for all ages exploring cosmic wonders.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="domainsOverlay" class="content-overlay">
+    <div class="close-btn" onclick="closeContent('domainsOverlay')">×</div>
+    <div class="overlay-content">
+        <h2>EXPLORATION DOMAINS</h2>
+        <div class="content-grid">
+            <div class="content-card">
+                <h3>Astrophysics</h3>
+                <p>Dive deep into the physics of celestial bodies, black holes, and the fundamental forces governing the universe.</p>
+            </div>
+            <div class="content-card">
+                <h3>Planetary Science</h3>
+                <p>Study the formation, evolution, and characteristics of planets, moons, and other celestial objects in our solar system and beyond.</p>
+            </div>
+            <div class="content-card">
+                <h3>Space Engineering</h3>
+                <p>Design and develop spacecraft, satellites, and propulsion systems. Engineering solutions for space exploration challenges.</p>
+            </div>
+            <div class="content-card">
+                <h3>Astrobiology</h3>
+                <p>Investigate the possibility of life beyond Earth. Research extremophiles and habitable zone characteristics.</p>
+            </div>
+            <div class="content-card">
+                <h3>Cosmology</h3>
+                <p>Explore the origin, evolution, and ultimate fate of the universe. Dark matter, dark energy, and the Big Bang theory.</p>
+            </div>
+            <div class="content-card">
+                <h3>Space Technology</h3>
+                <p>Cutting-edge innovations in satellite communications, space stations, and interplanetary travel systems.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="newsOverlay" class="content-overlay">
+    <div class="close-btn" onclick="closeContent('newsOverlay')">×</div>
+    <div class="overlay-content">
+        <h2>LATEST SPACE NEWS</h2>
+        <div class="content-grid">
+            <div class="content-card">
+                <h3>New Exoplanet Discovery</h3>
+                <p>Astronomers have identified a potentially habitable exoplanet in the Goldilocks zone of a nearby star system.</p>
+            </div>
+            <div class="content-card">
+                <h3>Mars Mission Update</h3>
+                <p>Latest findings from the Perseverance rover reveal ancient river delta formations suggesting past water presence.</p>
+            </div>
+            <div class="content-card">
+                <h3>Breakthrough in Fusion</h3>
+                <p>Scientists achieve new milestone in nuclear fusion, bringing us closer to sustainable space propulsion systems.</p>
+            </div>
+            <div class="content-card">
+                <h3>ISS Expansion Plans</h3>
+                <p>International collaboration announces new modules for the space station, expanding research capabilities significantly.</p>
+            </div>
+            <div class="content-card">
+                <h3>Black Hole Imaging</h3>
+                <p>Enhanced telescope array captures unprecedented detail of supermassive black hole's event horizon and accretion disk.</p>
+            </div>
+            <div class="content-card">
+                <h3>Asteroid Mining Progress</h3>
+                <p>Private companies demonstrate successful extraction techniques on near-Earth asteroids, advancing commercial space ventures.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="homeOverlay" class="content-overlay">
+    <div class="close-btn" onclick="closeContent('homeOverlay')">×</div>
+    <div class="overlay-content">
+        <h2>WELCOME HOME, EXPLORER</h2>
+        <div class="content-grid">
+            <div class="content-card">
+                <h3>Our Mission</h3>
+                <p>To inspire and educate the next generation of space explorers through innovative programs and cutting-edge research.</p>
+            </div>
+            <div class="content-card">
+                <h3>Our Vision</h3>
+                <p>A future where humanity thrives as a multi-planetary species, exploring the cosmos with curiosity and wonder.</p>
+            </div>
+            <div class="content-card">
+                <h3>Join Our Community</h3>
+                <p>Connect with fellow space enthusiasts, participate in projects, and contribute to our collective journey into the stars.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="contactOverlay" class="content-overlay">
+    <div class="close-btn" onclick="closeContent('contactOverlay')">×</div>
+    <div class="overlay-content">
+        <h2>CONTACT US</h2>
+        <div class="content-grid">
+            <div class="content-card">
+                <h3>Email</h3>
+                <p>info@cosmicexplorers.space<br>research@cosmicexplorers.space</p>
+            </div>
+            <div class="content-card">
+                <h3>Location</h3>
+                <p>Vishwakarma Institute of Technology<br>Bibvewadi / Kondhwa<br>Pune</p>
+            </div>
+            <div class="content-card">
+                <h3>Social Media</h3>
+                <p>Follow us on linkdin and Instagram for daily space content and event coverage.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script>
+function openContent(section) {
+    const overlayId = section + 'Overlay';
+    const overlay = document.getElementById(overlayId);
+    
+    if (overlay) {
+        overlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+}
+
+function closeContent(overlayId) {
+    const overlay = document.getElementById(overlayId);
+    
+    if (overlay) {
+        overlay.classList.remove('active');
+        document.body.style.overflow = 'auto';
+    }
+}
+
+
+$(document).ready(function() {
+    // Animate hero section
+    $('.hero-section').hide().fadeIn(1500);
+    
+    // Animate about section
+    $('.about-section').hide().slideDown(1200);
+    
+    // Animate fact cards
+    $('.fact-card').each(function(index) {
+        $(this).hide().delay(200 * index).fadeIn(800);
+    });
+    
+    // Animate spline viewer
+    $('.spline-viewer-wrapper').hide().delay(1000).fadeIn(1500);
+    
+    // Click on spline viewer to suck in all fact cards
+    $('.spline-viewer-wrapper').on('click', function() {
+        const blackholeRect = this.getBoundingClientRect();
+        const blackholeX = blackholeRect.left + blackholeRect.width / 2;
+        const blackholeY = blackholeRect.top + blackholeRect.height / 2;
+        
+        $('.fact-card').each(function(index) {
+            const cardRect = this.getBoundingClientRect();
+            const cardX = cardRect.left + cardRect.width / 2;
+            const cardY = cardRect.top + cardRect.height / 2;
+            
+            // Calculate direction to blackhole
+            const targetX = blackholeX - cardX;
+            const targetY = blackholeY - cardY;
+            
+            // Set CSS variables for animation
+            this.style.setProperty('--target-x', targetX + 'px');
+            this.style.setProperty('--target-y', targetY + 'px');
+            
+            // Add sucked class with delay
+            setTimeout(() => {
+                $(this).addClass('sucked');
+            }, index * 150);
+        });
+        
+        // Reset after animation completes
+        setTimeout(() => {
+            $('.fact-card').removeClass('sucked').hide();
+            $('.fact-card').each(function(index) {
+                $(this).delay(200 * index).fadeIn(800);
+            });
+        }, 3000);
+    });
+});
+</script>
+
+</body>
+</html>
