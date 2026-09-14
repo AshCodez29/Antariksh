@@ -17,6 +17,8 @@
   <link rel="stylesheet" href="theme.css">
   <link rel="stylesheet" href="additions.css">
   <link rel="stylesheet" href="navbar-fix.css">
+  <link rel="stylesheet" href="mission-accordion.css">
+  <link rel="stylesheet" href="footer-extras.css">
   <style>
     .reveal,
     .hero-reveal {
@@ -107,52 +109,52 @@
           <p class="kicker">02 /WHAT WE DO </p>
           <p class="mono">CHOOSE YOUR ADVENTURE ↓</p>
         </div>
-        <div class="mission-list">
-          <article class="mission-card reveal">
-            <div class="card-number">01</div>
-            <div class="mission-icon telescope">⌁</div>
-            <div>
+        <div class="mission-accordion reveal" aria-label="What we do">
+          <article class="accordion-mission is-active" tabindex="0"
+            style="--mission-image:url('https://images.unsplash.com/photo-1531058020387-3be344556be6?auto=format&fit=crop&w=1400&q=85')">
+            <div class="accordion-overlay"></div>
+            <div class="accordion-index">01</div>
+            <div class="accordion-copy"><span>STARGAZING</span>
               <h3>STAR PARTIES</h3>
               <p>Star Party is an Antariksh Club stargazing event held at remote venues, featuring meteor showers,
                 astronomy talks, and telescope observations. Participants enjoy viewing the Milky Way and planets like
                 Saturn, Jupiter, Venus, and Mars under a clear night sky.</p>
             </div>
-            <div class="card-arrow">↗</div>
-            <div class="card-tag">STARGAZING</div>
+            <div class="accordion-symbol">✦</div>
           </article>
-          <article class="mission-card reveal">
-            <div class="card-number">02</div>
-            <div class="mission-icon rocket">↟</div>
-            <div>
+          <article class="accordion-mission" tabindex="0"
+            style="--mission-image:url('https://images.unsplash.com/photo-1488866022504-f2584929ca5f?auto=format&fit=crop&w=1400&q=85')">
+            <div class="accordion-overlay"></div>
+            <div class="accordion-index">02</div>
+            <div class="accordion-copy"><span>MAKE LAB</span>
               <h3>WORKSHOPS</h3>
               <p>We conduct hands-on workshops in Radio Astronomy (ASRT & GMRT), Astrophotography, and Astronomical
                 Image Processing, giving students practical exposure to observing, capturing, and analyzing the
                 universe.</p>
             </div>
-            <div class="card-arrow">↗</div>
-            <div class="card-tag">MAKE LAB</div>
+            <div class="accordion-symbol">⌁</div>
           </article>
-          <article class="mission-card reveal">
-            <div class="card-number">03</div>
-            <div class="mission-icon radio">⌇</div>
-            <div>
+          <article class="accordion-mission" tabindex="0"
+            style="--mission-image:url('https://images.unsplash.com/photo-1516575150278-77136aed6920?auto=format&fit=crop&w=1400&q=85')">
+            <div class="accordion-overlay"></div>
+            <div class="accordion-index">03</div>
+            <div class="accordion-copy"><span>COSMIC CULTURE</span>
               <h3>INTERNAL TALKS</h3>
               <p>Films, fireside talks and cosmic stories for every kind of curious mind.</p>
             </div>
-            <div class="card-arrow">↗</div>
-            <div class="card-tag">COSMIC CULTURE</div>
+            <div class="accordion-symbol">⌇</div>
           </article>
-          <article class="mission-card reveal">
-            <div class="card-number">04</div>
-            <div class="mission-icon radio">⌇</div>
-            <div>
+          <article class="accordion-mission" tabindex="0"
+            style="--mission-image:url('https://images.unsplash.com/photo-1517976547714-720226b864c1?auto=format&fit=crop&w=1400&q=85')">
+            <div class="accordion-overlay"></div>
+            <div class="accordion-index">04</div>
+            <div class="accordion-copy"><span>OUTREACH</span>
               <h3>VOLUNTARY ACTIVITIES</h3>
               <p>We organize expert-led workshops, science exhibitions, ISRO scientist talks, podcasts, and outreach
                 programs, inspiring students and young learners through hands-on astronomy and space science
                 experiences.</p>
             </div>
-            <div class="card-arrow">↗</div>
-            <div class="card-tag">OUTREACH</div>
+            <div class="accordion-symbol">↟</div>
           </article>
         </div>
       </div>
@@ -262,10 +264,9 @@
   <footer>
     <div class="container">
       <div class="footer-top"><a class="footer-logo" href="#home">ANTARIKSH<span>✦</span></a>
-        <div class="socials"><a href="#" aria-label="Instagram">IG</a><a href="#" aria-label="LinkedIn">LI</a><a
-            href="#" aria-label="YouTube">YT</a></div>
+        <div class="footer-extras"><div class="footer-follow"><span>FOLLOW THE COSMIC VOYAGE</span><div class="socials"><a href="#" aria-label="Instagram" title="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="1"></circle></svg></a><a href="#" aria-label="LinkedIn" title="LinkedIn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.2 8.3H3.1V21h3.1V8.3ZM4.7 3A1.8 1.8 0 1 0 4.7 6.6 1.8 1.8 0 0 0 4.7 3ZM21 13.7c0-3.8-2-5.6-4.7-5.6-2.2 0-3.1 1.2-3.7 2v-1.8H9.5V21h3.1v-6.3c0-1.7.3-3.3 2.4-3.3 2 0 2 1.9 2 3.4V21v-7.3Z"></path></svg></a><a href="#" aria-label="Twitter" title="Twitter"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.9 7.1v.5c0 5.3-4 11.4-11.4 11.4-2.3 0-4.3-.7-6.1-1.8h.9c1.8 0 3.5-.6 4.8-1.6a4 4 0 0 1-3.7-2.8 4 4 0 0 0 1.8-.1A4 4 0 0 1 3 8.8v-.1c.5.3 1.2.5 1.8.5a4 4 0 0 1-1.2-5.3 11.3 11.3 0 0 0 8.2 4.2 4 4 0 0 1 6.8-3.6c.9-.2 1.7-.5 2.4-.9-.3.9-.9 1.6-1.6 2.1.7-.1 1.4-.3 2-.5-.4.7-.9 1.3-1.5 1.8Z"></path></svg></a></div></div><a class="footer-location" href="#">FIND US AT: LOCATION PLACEHOLDER ↗</a></div>
       </div>
-      <div class="footer-bottom"><span>© 2024 ANTARIKSH CLUB</span><span>MADE UNDER THE SAME SKY</span><a
+      <div class="footer-bottom"><span>© 2026 ANTARIKSH CLUB</span><span>MADE UNDER THE SAME SKY</span><a
           href="#home">BACK TO EARTH ↑</a></div>
     </div>
   </footer>
