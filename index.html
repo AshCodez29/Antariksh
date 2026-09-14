@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#06061a">
+  <title>Antariksh Club — We are made of star stuff</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Outfit:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap"
+    rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="gallery.css">
+  <link rel="stylesheet" href="theme.css">
+  <link rel="stylesheet" href="additions.css">
+  <link rel="stylesheet" href="navbar-fix.css">
+  <style>
+    .reveal,
+    .hero-reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity .75s ease, transform .75s cubic-bezier(.2, .7, .2, 1)
+    }
+
+    .reveal.is-visible,
+    .hero-reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0)
+    }
+  </style>
+</head>
+
+<body>
+  <video class="site-galaxy-background" style="position:fixed;inset:0;z-index:0;width:100%;height:100%;object-fit:cover"
+    autoplay muted playsinline loop preload="metadata" aria-hidden="true">
+    <source src="assets/galaxy_small.mp4" type="video/mp4">
+  </video>
+  <div class="site-galaxy-veil" style="position:fixed;inset:0;z-index:1;pointer-events:none" aria-hidden="true"></div>
+  <div class="noise"></div>
+  <div class="cursor-glow"></div>
+  <nav class="navbar navbar-expand-lg sticky-top" style="position:sticky;top:0;z-index:1000">
+    <div class="container"><a class="navbar-brand" href="#home"><span class="brand-orbit">✦</span> ANTARIKSH</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+        data-bs-target="#nav"><span></span><span></span></button>
+      <div class="collapse navbar-collapse" id="nav">
+        <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-3">
+          <li class="nav-item"><a class="nav-link" href="events (1).html">Events</a></li>
+          <li class="nav-item"><a class="nav-link" href="#missions">Archives</a></li>
+          <li class="nav-item"><a class="nav-link" href="gallery.html">Gallery</a></li>
+          <li class="nav-item"><a class="nav-link" href="#signal">Projects</a></li>
+          <li class="nav-item"><a class="join-pill" href="mailto:hello@antariksh.club">Join the crew <span>↗</span></a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <main id="home">
+    <section class="hero">
+      <video class="hero-video" autoplay muted playsinline loop preload="metadata" aria-label="Galaxy moving in space">
+        <source src="assets/galaxy_small.mp4" type="video/mp4">
+      </video>
+      <div class="hero-shade"></div>
+      <div class="hero-grid"></div>
+      <div class="star star-a">✦</div>
+      <div class="star star-b">✧</div>
+      <div class="star star-c">✦</div>
+      <div class="container hero-content">
+        <div class="eyebrow hero-reveal"><i></i> EST. 2026 / EARTH ORBIT</div>
+        <h1 aria-label="Antariksh Club"><span class="word word-one">ANTARIKSH</span><span
+            class="word word-two">Astronomy Club<span class="period">.</span></span></h1>
+        <div class="hero-bottom hero-reveal">
+          <p>A curious collective for people<br>with their heads in the cosmos.</p><a href="#about"
+            class="scroll-cue">Begin exploring <b>↓</b></a>
+        </div>
+      </div>
+      <div class="orbit-line"></div>
+      <div class="planet-dot"></div>
+    </section>
+
+    <section id="about" class="about section-pad">
+      <div class="container">
+        <div class="row align-items-end gy-5">
+          <div class="col-lg-5 reveal">
+            <p class="kicker">01 / ABOUT THE CLUB</p>
+            <h2>Space is<br><em>for everyone.</em></h2>
+          </div>
+          <div class="col-lg-6 offset-lg-1 reveal">
+            <p class="lead-copy">Astronomy Club, is a student-driven and faculty-guided entity encouraging astronomy
+              enthusiasts to build their careers in the field of astronomy. The objective of this club is to motivate
+              students towards the field of astronomy by emphasizing the opportunities for engineers in the field of
+              astronomy through arranging guidance lectures, stargazing programmes, and astrophysics forum.</p><a
+              href="#missions" class="text-link">Meet our universe <span>→</span></a>
+          </div>
+        </div>
+        <div class="mission-stamp reveal"><span>WE BELIEVE</span><strong>curiosity<br>has no<br>gravity.</strong><span>✦
+            KEEP LOOKING UP ✦</span></div>
+      </div>
+    </section>
+
+    <section id="missions" class="missions section-pad">
+      <div class="container">
+        <div class="section-top reveal">
+          <p class="kicker">02 /WHAT WE DO </p>
+          <p class="mono">CHOOSE YOUR ADVENTURE ↓</p>
+        </div>
+        <div class="mission-list">
+          <article class="mission-card reveal">
+            <div class="card-number">01</div>
+            <div class="mission-icon telescope">⌁</div>
+            <div>
+              <h3>STAR PARTIES</h3>
+              <p>Star Party is an Antariksh Club stargazing event held at remote venues, featuring meteor showers,
+                astronomy talks, and telescope observations. Participants enjoy viewing the Milky Way and planets like
+                Saturn, Jupiter, Venus, and Mars under a clear night sky.</p>
+            </div>
+            <div class="card-arrow">↗</div>
+            <div class="card-tag">STARGAZING</div>
+          </article>
+          <article class="mission-card reveal">
+            <div class="card-number">02</div>
+            <div class="mission-icon rocket">↟</div>
+            <div>
+              <h3>WORKSHOPS</h3>
+              <p>We conduct hands-on workshops in Radio Astronomy (ASRT & GMRT), Astrophotography, and Astronomical
+                Image Processing, giving students practical exposure to observing, capturing, and analyzing the
+                universe.</p>
+            </div>
+            <div class="card-arrow">↗</div>
+            <div class="card-tag">MAKE LAB</div>
+          </article>
+          <article class="mission-card reveal">
+            <div class="card-number">03</div>
+            <div class="mission-icon radio">⌇</div>
+            <div>
+              <h3>INTERNAL TALKS</h3>
+              <p>Films, fireside talks and cosmic stories for every kind of curious mind.</p>
+            </div>
+            <div class="card-arrow">↗</div>
+            <div class="card-tag">COSMIC CULTURE</div>
+          </article>
+          <article class="mission-card reveal">
+            <div class="card-number">04</div>
+            <div class="mission-icon radio">⌇</div>
+            <div>
+              <h3>VOLUNTARY ACTIVITIES</h3>
+              <p>We organize expert-led workshops, science exhibitions, ISRO scientist talks, podcasts, and outreach
+                programs, inspiring students and young learners through hands-on astronomy and space science
+                experiences.</p>
+            </div>
+            <div class="card-arrow">↗</div>
+            <div class="card-tag">OUTREACH</div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="flight-log" class="flight-log">
+      <div class="container">
+        <div class="log-intro reveal">
+          <div>
+            <p class="kicker">03 / THE FLIGHT LOG</p>
+            <h2>Evidence of<br><em>good times.</em></h2>
+          </div>
+          <p>Field notes from nights we looked up, days we got our hands dirty, and every delightfully nerdy moment in
+            between.</p>
+        </div>
+      </div>
+      <div class="featured-frame reveal"><a href="gallery.html"><img
+            src="/Users/aryanpatil/Desktop/Antariksh Club Website/PXL_20260419_014016086.MP.jpg"
+            alt="Club members gathered outdoors">
+        </a>
+        <div class="featured-veil"></div>
+        <div class="featured-caption"><span>HIGHLIGHT EVENT</span><strong>Star
+            Party<br>2025</strong><small>Hover to tune in ↓</small></div>
+        <div class="glass-orbit"><span>✦</span></div>
+      </div>
+      <div class="gallery-area">
+        <div class="container">
+          <div class="gallery-line"><span>ARCHIVE / SCROLL TO UNFOLD</span><span>13 MOMENTS CAPTURED</span></div>
+        </div>
+        <div class="marquee" aria-label="Flight log image archive">
+          <div id="event-marquee" class="marquee-track"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="members" class="members section-pad">
+      <div class="container">
+        <div class="members-intro reveal">
+          <p class="kicker">04 / MEET MEMBERS</p>
+          <h2>The people<br><em>behind the orbit.</em></h2>
+          <p>Different disciplines, one shared pull toward the sky.</p>
+        </div>
+        <div class="member-deck">
+          <article class="member-card reveal">
+            <div class="member-image"><img
+                src="https://images.unsplash.com/photo-1531058020387-3be344556be6?auto=format&fit=crop&w=900&q=80"
+                alt="Placeholder for an observer member"><span>✦</span></div>
+            <div class="member-copy">
+              <p>CREW / 001</p>
+              <h3>Jameer<br>Manur Sir</h3><span>Mentor and Founder</span>
+            </div>
+          </article>
+          <article class="member-card reveal">
+            <div class="member-image"><img
+                src="https://images.unsplash.com/photo-1488866022504-f2584929ca5f?auto=format&fit=crop&w=900&q=80"
+                alt="Placeholder for a builder member"><span>⌁</span></div>
+            <div class="member-copy">
+              <p>CREW / 002</p>
+              <h3>Prof Dr.Shital<br>Pawar</h3><span>Faculty Advisor</span>
+            </div>
+          </article>
+          <article class="member-card reveal">
+            <div class="member-image"><img
+                src="https://images.unsplash.com/photo-1519608487953-e999c86e7452?auto=format&fit=crop&w=900&q=80"
+                alt="Placeholder for a storyteller member"><span>↟</span></div>
+            <div class="member-copy">
+              <p>CREW / 003</p>
+              <h3>Prof Milind<br>Patil</h3><span>Faculty Advisor</span>
+            </div>
+          </article>
+          <article class="member-card reveal">
+            <div class="member-image"><img
+                src="https://images.unsplash.com/photo-1462331940025-496dfbfc7564?auto=format&fit=crop&w=900&q=80"
+                alt="Placeholder for a dreamer member"><span>◌</span></div>
+            <div class="member-copy">
+              <p>CREW / 004</p>
+              <h3>Kalyani<br>Karmarkar</h3><span>President</span><br><span>TY AIML</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="quote-section">
+      <div class="container">
+        <div class="quote-orbit"><span>✦</span></div>
+        <blockquote class="reveal">“Somewhere, something incredible is waiting to be known.”</blockquote>
+        <p class="quote-author reveal">— CARL SAGAN</p>
+      </div>
+    </section>
+
+    <section id="signal" class="signal section-pad">
+      <div class="container">
+        <div class="signal-panel reveal">
+          <div class="signal-static"></div>
+          <div class="signal-copy">
+            <p class="kicker">04 / TRANSMISSION INCOMING</p>
+            <h2>Find your<br><em>people.</em></h2>
+            <p>Whether you know every moon of Jupiter or just love looking up, there’s a seat on this ship with your
+              name on it.</p><a class="launch-btn" href="mailto:hello@antariksh.club">Send a signal <span>↗</span></a>
+          </div>
+          <div class="signal-frequency"><span>FREQUENCY</span><b>22:22</b><span>MHz</span></div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer>
+    <div class="container">
+      <div class="footer-top"><a class="footer-logo" href="#home">ANTARIKSH<span>✦</span></a>
+        <div class="socials"><a href="#" aria-label="Instagram">IG</a><a href="#" aria-label="LinkedIn">LI</a><a
+            href="#" aria-label="YouTube">YT</a></div>
+      </div>
+      <div class="footer-bottom"><span>© 2024 ANTARIKSH CLUB</span><span>MADE UNDER THE SAME SKY</span><a
+          href="#home">BACK TO EARTH ↑</a></div>
+    </div>
+  </footer>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="script.js"></script>
+</body>
+
+</html>
