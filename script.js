@@ -22,4 +22,11 @@ $(function () {
   const $marquee = $('#event-marquee');
   const marqueeItems = memories.slice(0, 4).map(memory => `<article class="marquee-item"><img src="${memory[0]}" alt="${memory[1]}" loading="lazy"><div class="marquee-label"><strong>${memory[1]}</strong><span>${memory[2]}</span></div></article>`).join('');
   $marquee.append(marqueeItems + marqueeItems);
+
+  $('.accordion-mission').on('mouseenter focus', function () {
+    $('.accordion-mission').removeClass('is-active');
+    $(this).addClass('is-active');
+  }).on('keydown', function (event) {
+    if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); $(this).trigger('focus'); }
+  });
 });
