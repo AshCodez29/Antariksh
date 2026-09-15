@@ -90,7 +90,7 @@ footer {
 }
 
 .gallery-hero-veil {
-  background: linear-gradient(90deg, rgb(33 0 53 / .8), rgb(75 0 114 / .2) 50%, var(--ink) 100%);
+  background: linear-gradient(90deg, rgba(10, 10, 10, 0.8), rgb(75 0 114 / .2) 50%, var(--ink) 100%);
 }
 
 .gallery-hero-copy .kicker,
