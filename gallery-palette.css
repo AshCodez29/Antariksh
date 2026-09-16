@@ -1,0 +1,114 @@
+/* Gallery-only palette inspired by #7e91d0, #5670bd, #3471c1, and #1650af. */
+.gallery-page {
+    --gallery-night: #070b21;
+    --gallery-deep: #0b1640;
+    --gallery-indigo: #172b64;
+    --gallery-blue: #3471c1;
+    --gallery-lavender: #aebcf1;
+    --gallery-mist: #e7ebff;
+    background: var(--gallery-night);
+    color: var(--gallery-mist)
+}
+
+.gallery-page-video {
+    background: var(--gallery-night)
+}
+
+.gallery-page-video::after {
+    background: linear-gradient(135deg, rgba(7, 11, 33, .86), rgba(11, 22, 64, .68) 55%, rgba(22, 80, 175, .35))
+}
+
+.gallery-page .gallery-page-content,
+.gallery-page .astrophotography-section {
+    background: linear-gradient(180deg, rgba(7, 11, 33, .93), rgba(11, 22, 64, .94));
+    color: var(--gallery-mist)
+}
+
+.gallery-page .astrophotography-section {
+    padding-top: 30px
+}
+
+.gallery-page footer {
+    background: rgba(7, 11, 33, .94)
+}
+
+.gallery-nav {
+    background: linear-gradient(rgba(7, 11, 33, .96), transparent)
+}
+
+.back-home {
+    color: var(--gallery-mist)
+}
+
+.back-home:hover,
+.gallery-hero-copy .kicker,
+.gallery-page .gallery-page-heading .kicker,
+.gallery-page .tile-caption span {
+    color: var(--gallery-lavender)
+}
+
+.gallery-hero {
+    background: var(--gallery-night);
+    color: var(--gallery-mist)
+}
+
+.gallery-hero-veil {
+    background: linear-gradient(90deg, rgba(7, 11, 33, .9), rgba(23, 43, 100, .38) 52%, rgba(7, 11, 33, .92))
+}
+
+.hero-ring {
+    border-color: rgba(174, 188, 241, .55);
+    color: var(--gallery-lavender)
+}
+
+.gallery-page .gallery-line {
+    color: var(--gallery-lavender);
+    border-color: rgba(174, 188, 241, .36)
+}
+
+.gallery-page .gallery-page-heading>p {
+    color: #cbd4fb
+}
+
+.gallery-page .event-tile {
+    background: var(--gallery-indigo)
+}
+
+.gallery-page .event-tile:after {
+    background: linear-gradient(0deg, rgba(7, 11, 33, .94), rgba(11, 22, 64, .4) 52%, transparent 75%)
+}
+
+.gallery-page .tile-caption {
+    color: var(--gallery-mist)
+}
+
+.event-filter span {
+    color: var(--gallery-lavender)
+}
+
+.event-filter select {
+    border-color: rgba(174, 188, 241, .55);
+    background-color: var(--gallery-deep);
+    color: var(--gallery-mist)
+}
+
+.astro-jump {
+    border-color: rgba(174, 188, 241, .55);
+    color: var(--gallery-mist)
+}
+
+.astro-jump:hover {
+    background: var(--gallery-blue);
+    border-color: var(--gallery-blue);
+    color: #fff
+}
+
+.event-filter select:focus {
+    outline-color: var(--gallery-lavender)
+}
+
+@media(max-width:767px) {
+    .gallery-hero-veil {
+        background: linear-gradient(0deg, rgba(7, 11, 33, .94), rgba(11, 22, 64, .28) 70%, transparent)
+    }
+}
