@@ -1,0 +1,161 @@
+.gallery-controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    margin: 0 0 25px
+}
+
+.year-filter {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px
+}
+
+.year-filter>span {
+    margin-right: 8px;
+    color: #3e454a;
+    font: 500 .62rem "DM Mono", monospace;
+    letter-spacing: .12em
+}
+
+.filter-button,
+.astro-jump {
+    border: 1px solid #09091b45;
+    background: transparent;
+    color: #09091b;
+    font: 500 .67rem "DM Mono", monospace;
+    letter-spacing: .08em;
+    text-decoration: none
+}
+
+.filter-button {
+    padding: 9px 12px;
+    cursor: pointer
+}
+
+.filter-button:hover,
+.filter-button.is-active {
+    background: #09091b;
+    color: #f5f1e8
+}
+
+.astro-jump {
+    padding: 10px 13px
+}
+
+.astro-jump:hover {
+    background: #e9ff57;
+    border-color: #e9ff57
+}
+
+.astro-jump b {
+    font-size: 1rem;
+    margin-left: 7px
+}
+
+.event-tile.is-hidden {
+    display: none
+}
+
+.event-filter {
+    display: flex;
+    align-items: center;
+    gap: 12px
+}
+
+.event-filter span {
+    color: #3e454a;
+    font: 500 .62rem "DM Mono", monospace;
+    letter-spacing: .12em
+}
+
+.event-filter select {
+    appearance: none;
+    border: 1px solid #09091b45;
+    border-radius: 0;
+    background: #f5f1e8 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='m1 1 5 5 5-5' fill='none' stroke='%2309091b' stroke-width='1.5'/%3E%3C/svg%3E") no-repeat right 12px center/12px 8px;
+    color: #09091b;
+    cursor: pointer;
+    font: 500 .72rem "DM Mono", monospace;
+    letter-spacing: .04em;
+    padding: 11px 38px 11px 12px
+}
+
+.event-filter select:focus {
+    outline: 2px solid #e9ff57;
+    outline-offset: 2px
+}
+
+.astrophotography-section {
+    padding: 0 0 145px
+}
+
+.astro-grid .event-tile:after {
+    opacity: .58
+}
+
+.astro-grid .event-tile:hover:after {
+    opacity: .8
+}
+
+.astro-grid .event-tile:nth-child(1) {
+    grid-column: span 5;
+    grid-row: span 5
+}
+
+.astro-grid .event-tile:nth-child(2) {
+    grid-column: span 7;
+    grid-row: span 5
+}
+
+.astro-grid .event-tile:nth-child(3) {
+    grid-column: span 4;
+    grid-row: span 4
+}
+
+.astro-grid .event-tile:nth-child(4) {
+    grid-column: span 4;
+    grid-row: span 4
+}
+
+.astro-grid .event-tile:nth-child(5) {
+    grid-column: span 4;
+    grid-row: span 4
+}
+
+.astro-grid .event-tile:nth-child(6) {
+    grid-column: span 12;
+    grid-row: span 4
+}
+
+@media(max-width:767px) {
+    .gallery-controls {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 16px
+    }
+
+    .event-filter {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 8px
+    }
+
+    .astrophotography-section {
+        padding-bottom: 95px
+    }
+
+    .astro-grid .event-tile:nth-child(n) {
+        grid-column: span 1;
+        grid-row: span 1
+    }
+
+    .astro-grid .event-tile:nth-child(1),
+    .astro-grid .event-tile:nth-child(2),
+    .astro-grid .event-tile:nth-child(6) {
+        grid-column: span 2;
+        grid-row: span 2
+    }
+}

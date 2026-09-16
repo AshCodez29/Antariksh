@@ -17,6 +17,7 @@
   <link rel="stylesheet" href="gallery-page.css">
   <link rel="stylesheet" href="gallery-video.css">
   <link rel="stylesheet" href="theme.css">
+  <link rel="stylesheet" href="gallery-filters.css">
 </head>
 
 <body class="gallery-page">
@@ -52,8 +53,34 @@
           <p>Hover over a memory to see where it came from. These are placeholder frames, waiting for the real Antariksh
             stories.</p>
         </div>
-        <div class="gallery-line"><span>SCROLL TO REVEAL</span><span>10 MOMENTS CAPTURED</span></div>
+        <div class="gallery-controls" aria-label="Gallery controls">
+          <label class="event-filter" for="event-filter"><span>FILTER BY EVENT</span><select id="event-filter"
+              name="event-filter">
+              <option value="all">All events</option>
+              <option value="star-party">Star Party</option>
+              <option value="workshops">Workshops</option>
+              <option value="internal-talks">Internal Talks</option>
+              <option value="outreachs">Outreachs</option>
+            </select></label>
+          <a class="astro-jump" href="#astrophotography">View astrophotography <b>↓</b></a>
+        </div>
+        <div class="gallery-line"><span id="gallery-status">SCROLL TO REVEAL</span><span id="gallery-count">10 MOMENTS
+            CAPTURED</span></div>
         <div id="event-grid" class="event-grid"></div>
+      </div>
+    </section>
+    <section id="astrophotography" class="astrophotography-section">
+      <div class="container">
+        <div class="gallery-page-heading">
+          <div>
+            <p class="kicker">THROUGH OUR LENSES</p>
+            <h2>Astrophoto<br><em>archive.</em></h2>
+          </div>
+          <p>A home for the club's views of the night sky. These are placeholder images for now, ready to be swapped
+            with your own captures.</p>
+        </div>
+        <div class="gallery-line"><span>CLUB CAPTURES</span><span>6 PLACEHOLDER FRAMES</span></div>
+        <div id="astro-grid" class="event-grid astro-grid"></div>
       </div>
     </section>
   </main>
