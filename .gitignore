@@ -36,6 +36,5 @@ build/
 *.log
 .cache/
 
-# Media Files
-*.mp4
+
 
