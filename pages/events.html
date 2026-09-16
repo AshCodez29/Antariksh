@@ -1,487 +1,529 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Events — Astronomy Club</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --void: #03060d;
-    --panel: #0a1424;
-    --panel-alt: #0e1c34;
-    --line: #1b3358;
-    --blue-deep: #142d52;
-    --blue-mid: #2f6494;
-    --blue-bright: #7ec2f0;
-    --blue-glow: rgba(126, 194, 240, 0.35);
-    --text-primary: #e7eef7;
-    --text-muted: #8ea3bc;
-    --text-dim: #566980;
-  }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Events — Astronomy Club</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Source+Sans+3:wght@400;500;600&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --void: #03060d;
+      --panel: #0a1424;
+      --panel-alt: #0e1c34;
+      --line: #1b3358;
+      --blue-deep: #142d52;
+      --blue-mid: #2f6494;
+      --blue-bright: #7ec2f0;
+      --blue-glow: rgba(126, 194, 240, 0.35);
+      --text-primary: #e7eef7;
+      --text-muted: #8ea3bc;
+      --text-dim: #566980;
+    }
 
-  *{ box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+    }
 
-  html{ scroll-behavior: smooth; }
+    html {
+      scroll-behavior: smooth;
+    }
 
-  body{
-    margin: 0;
-    min-height: 100vh;
-    background-color: var(--void);
-    background-image: radial-gradient(circle, rgba(126,194,240,0.09) 1px, transparent 1.2px);
-    background-size: 26px 26px;
-    color: var(--text-primary);
-    font-family: 'Source Sans 3', sans-serif;
-    -webkit-font-smoothing: antialiased;
-  }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background-color: var(--void);
+      background-image: radial-gradient(circle, rgba(126, 194, 240, 0.09) 1px, transparent 1.2px);
+      background-size: 26px 26px;
+      color: var(--text-primary);
+      font-family: 'Source Sans 3', sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
 
-  .page{
-    max-width: 720px;
-    margin: 0 auto;
-    padding: 72px 24px 120px;
-  }
+    .page {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 72px 24px 120px;
+    }
 
-  header.masthead{
-    margin-bottom: 40px;
-  }
+    header.masthead {
+      margin-bottom: 40px;
+    }
 
-  .eyebrow-line{
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 18px;
-  }
+    .eyebrow-line {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
 
-  .eyebrow-line .dash{
-    width: 28px;
-    height: 1px;
-    background: var(--blue-mid);
-  }
+    .eyebrow-line .dash {
+      width: 28px;
+      height: 1px;
+      background: var(--blue-mid);
+    }
 
-  .eyebrow-line span{
-    font-size: 13px;
-    letter-spacing: 0.04em;
-    color: var(--text-muted);
-  }
+    .eyebrow-line span {
+      font-size: 13px;
+      letter-spacing: 0.04em;
+      color: var(--text-muted);
+    }
 
-  h1{
-    font-family: 'Space Grotesk', sans-serif;
-    font-weight: 600;
-    font-size: 40px;
-    line-height: 1.15;
-    margin: 0 0 12px;
-    color: var(--text-primary);
-  }
+    h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 600;
+      font-size: 40px;
+      line-height: 1.15;
+      margin: 0 0 12px;
+      color: var(--text-primary);
+    }
 
-  header.masthead p{
-    font-size: 16px;
-    color: var(--text-muted);
-    max-width: 52ch;
-    margin: 0;
-    line-height: 1.6;
-  }
+    header.masthead p {
+      font-size: 16px;
+      color: var(--text-muted);
+      max-width: 52ch;
+      margin: 0;
+      line-height: 1.6;
+    }
 
-  /* Filter controls */
-  .filters{
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin: 40px 0 56px;
-    padding-top: 24px;
-    border-top: 1px solid var(--line);
-  }
+    /* Filter controls */
+    .filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 40px 0 56px;
+      padding-top: 24px;
+      border-top: 1px solid var(--line);
+    }
 
-  .filter-btn{
-    font-family: 'Source Sans 3', sans-serif;
-    font-size: 14px;
-    font-weight: 600;
-    color: var(--text-muted);
-    background: var(--panel);
-    border: 1px solid var(--line);
-    border-radius: 3px;
-    padding: 9px 16px;
-    cursor: pointer;
-    transition: border-color 0.15s ease, color 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
-    position: relative;
-  }
+    .filter-btn {
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-muted);
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 3px;
+      padding: 9px 16px;
+      cursor: pointer;
+      transition: border-color 0.15s ease, color 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+      position: relative;
+    }
 
-  .filter-btn::before{
-    content: '';
-    display: inline-block;
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: var(--text-dim);
-    margin-right: 8px;
-    vertical-align: middle;
-    transition: background 0.15s ease, box-shadow 0.15s ease;
-  }
+    .filter-btn::before {
+      content: '';
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--text-dim);
+      margin-right: 8px;
+      vertical-align: middle;
+      transition: background 0.15s ease, box-shadow 0.15s ease;
+    }
 
-  .filter-btn:hover{
-    color: var(--text-primary);
-    border-color: var(--blue-mid);
-  }
+    .filter-btn:hover {
+      color: var(--text-primary);
+      border-color: var(--blue-mid);
+    }
 
-  .filter-btn:focus-visible{
-    outline: 2px solid var(--blue-bright);
-    outline-offset: 2px;
-  }
+    .filter-btn:focus-visible {
+      outline: 2px solid var(--blue-bright);
+      outline-offset: 2px;
+    }
 
-  .filter-btn.active{
-    color: var(--text-primary);
-    background: var(--blue-deep);
-    border-color: var(--blue-bright);
-    box-shadow: 0 0 0 1px var(--blue-glow), 0 0 18px -4px var(--blue-glow);
-  }
+    .filter-btn.active {
+      color: var(--text-primary);
+      background: var(--blue-deep);
+      border-color: var(--blue-bright);
+      box-shadow: 0 0 0 1px var(--blue-glow), 0 0 18px -4px var(--blue-glow);
+    }
 
-  .filter-btn.active::before{
-    background: var(--blue-bright);
-    box-shadow: 0 0 6px 1px var(--blue-bright);
-  }
+    .filter-btn.active::before {
+      background: var(--blue-bright);
+      box-shadow: 0 0 6px 1px var(--blue-bright);
+    }
 
-  /* Timeline */
-  .timeline{
-    position: relative;
-    padding-left: 52px;
-  }
+    /* Timeline */
+    .timeline {
+      position: relative;
+      padding-left: 52px;
+    }
 
-  .timeline::before{
-    content: '';
-    position: absolute;
-    left: 17px;
-    top: 6px;
-    bottom: 6px;
-    width: 1px;
-    background: linear-gradient(to bottom, var(--blue-mid), var(--line) 85%, transparent);
-  }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 17px;
+      top: 6px;
+      bottom: 6px;
+      width: 1px;
+      background: linear-gradient(to bottom, var(--blue-mid), var(--line) 85%, transparent);
+    }
 
-  .event{
-    position: relative;
-    padding-bottom: 44px;
-    opacity: 0;
-    transform: translateY(6px);
-    animation: rise 0.4s ease forwards;
-  }
+    .event {
+      position: relative;
+      padding-bottom: 44px;
+      opacity: 0;
+      transform: translateY(6px);
+      animation: rise 0.4s ease forwards;
+    }
 
-  .event:last-child{ padding-bottom: 0; }
+    .event:last-child {
+      padding-bottom: 0;
+    }
 
-  @keyframes rise{
-    to{ opacity: 1; transform: translateY(0); }
-  }
+    @keyframes rise {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
 
-  .node{
-    position: absolute;
-    left: -52px;
-    top: 0;
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    background: var(--panel-alt);
-    border: 1px solid var(--blue-mid);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 0 0 4px var(--void);
-  }
+    .node {
+      position: absolute;
+      left: -52px;
+      top: 0;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--panel-alt);
+      border: 1px solid var(--blue-mid);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 0 4px var(--void);
+    }
 
-  .node svg{
-    width: 16px;
-    height: 16px;
-    stroke: var(--blue-bright);
-  }
+    .node svg {
+      width: 16px;
+      height: 16px;
+      stroke: var(--blue-bright);
+    }
 
-  .event-date{
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 13px;
-    letter-spacing: 0.03em;
-    color: var(--blue-bright);
-    margin: 6px 0 6px;
-  }
+    .event-date {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 13px;
+      letter-spacing: 0.03em;
+      color: var(--blue-bright);
+      margin: 6px 0 6px;
+    }
 
-  .event-title{
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 20px;
-    font-weight: 600;
-    margin: 0 0 8px;
-    color: var(--text-primary);
-  }
+    .event-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 20px;
+      font-weight: 600;
+      margin: 0 0 8px;
+      color: var(--text-primary);
+    }
 
-  .event-excerpt{
-    font-size: 15px;
-    line-height: 1.65;
-    color: var(--text-muted);
-    margin: 0 0 12px;
-    max-width: 56ch;
-  }
+    .event-excerpt {
+      font-size: 15px;
+      line-height: 1.65;
+      color: var(--text-muted);
+      margin: 0 0 12px;
+      max-width: 56ch;
+    }
 
-  .read-more{
-    background: none;
-    border: none;
-    padding: 0;
-    font-family: 'Source Sans 3', sans-serif;
-    font-size: 14px;
-    font-weight: 600;
-    color: var(--blue-bright);
-    cursor: pointer;
-    border-bottom: 1px solid transparent;
-    transition: border-color 0.15s ease;
-  }
+    .read-more {
+      background: none;
+      border: none;
+      padding: 0;
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--blue-bright);
+      cursor: pointer;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.15s ease;
+    }
 
-  .read-more:hover,
-  .read-more:focus-visible{
-    border-bottom-color: var(--blue-bright);
-    outline: none;
-  }
+    .read-more:hover,
+    .read-more:focus-visible {
+      border-bottom-color: var(--blue-bright);
+      outline: none;
+    }
 
-  .empty-state{
-    color: var(--text-dim);
-    font-size: 15px;
-    padding: 20px 0 20px 4px;
-  }
+    .empty-state {
+      color: var(--text-dim);
+      font-size: 15px;
+      padding: 20px 0 20px 4px;
+    }
 
-  /* Modal */
-  .modal-backdrop{
-    position: fixed;
-    inset: 0;
-    background: rgba(2, 5, 11, 0.72);
-    backdrop-filter: blur(2px);
-    display: none;
-    align-items: center;
-    justify-content: center;
-    padding: 24px;
-    z-index: 50;
-  }
+    /* Modal */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(2, 5, 11, 0.72);
+      backdrop-filter: blur(2px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      z-index: 50;
+    }
 
-  .modal-backdrop.open{ display: flex; }
+    .modal-backdrop.open {
+      display: flex;
+    }
 
-  .modal{
-    background: var(--panel);
-    border: 1px solid var(--line);
-    border-radius: 4px;
-    max-width: 480px;
-    width: 100%;
-    padding: 32px;
-    position: relative;
-    box-shadow: 0 20px 60px -20px rgba(0,0,0,0.6), 0 0 0 1px rgba(126,194,240,0.08);
-  }
+    .modal {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      max-width: 480px;
+      width: 100%;
+      padding: 32px;
+      position: relative;
+      box-shadow: 0 20px 60px -20px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(126, 194, 240, 0.08);
+    }
 
-  .modal-close{
-    position: absolute;
-    top: 18px;
-    right: 18px;
-    background: none;
-    border: none;
-    color: var(--text-muted);
-    font-size: 20px;
-    line-height: 1;
-    cursor: pointer;
-    padding: 4px;
-  }
+    .modal-close {
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-size: 20px;
+      line-height: 1;
+      cursor: pointer;
+      padding: 4px;
+    }
 
-  .modal-close:hover,
-  .modal-close:focus-visible{ color: var(--text-primary); outline: none; }
+    .modal-close:hover,
+    .modal-close:focus-visible {
+      color: var(--text-primary);
+      outline: none;
+    }
 
-  .modal-kicker{
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 13px;
-    color: var(--blue-bright);
-    margin-bottom: 10px;
-  }
+    .modal-kicker {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 13px;
+      color: var(--blue-bright);
+      margin-bottom: 10px;
+    }
 
-  .modal h2{
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 24px;
-    font-weight: 600;
-    margin: 0 0 18px;
-    padding-right: 24px;
-  }
+    .modal h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 24px;
+      font-weight: 600;
+      margin: 0 0 18px;
+      padding-right: 24px;
+    }
 
-  .modal-meta{
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    margin-bottom: 18px;
-    padding-bottom: 18px;
-    border-bottom: 1px solid var(--line);
-    font-size: 14px;
-    color: var(--text-muted);
-  }
+    .modal-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 18px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid var(--line);
+      font-size: 14px;
+      color: var(--text-muted);
+    }
 
-  .modal-meta strong{ color: var(--text-primary); font-weight: 600; }
+    .modal-meta strong {
+      color: var(--text-primary);
+      font-weight: 600;
+    }
 
-  .modal p.body{
-    font-size: 15px;
-    line-height: 1.7;
-    color: var(--text-muted);
-    margin: 0;
-  }
+    .modal p.body {
+      font-size: 15px;
+      line-height: 1.7;
+      color: var(--text-muted);
+      margin: 0;
+    }
 
-  @media (max-width: 480px){
-    .page{ padding: 48px 18px 90px; }
-    h1{ font-size: 30px; }
-    .timeline{ padding-left: 44px; }
-    .node{ left: -44px; width: 32px; height: 32px; }
-    .timeline::before{ left: 15px; }
-  }
+    @media (max-width: 480px) {
+      .page {
+        padding: 48px 18px 90px;
+      }
 
-  @media (prefers-reduced-motion: reduce){
-    .event{ animation: none; opacity: 1; transform: none; }
-  }
-</style>
-<link rel="stylesheet" href="../static/css/events.css">
+      h1 {
+        font-size: 30px;
+      }
+
+      .timeline {
+        padding-left: 44px;
+      }
+
+      .node {
+        left: -44px;
+        width: 32px;
+        height: 32px;
+      }
+
+      .timeline::before {
+        left: 15px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .event {
+        animation: none;
+        opacity: 1;
+        transform: none;
+      }
+    }
+  </style>
+  <link rel="stylesheet" href="../static/css/events.css">
 </head>
+
 <body>
 
-<div class="page">
-  <header class="masthead">
-    <div class="eyebrow-line"><span class="dash"></span><span>Astronomy Club</span></div>
-    <h1>Events</h1>
-    <p>Star parties, workshops, talks, and visits — everything the club has run and has coming up, in one timeline.</p>
-  </header>
+  <div class="page">
+    <header class="masthead">
+      <div class="eyebrow-line"><span class="dash"></span><span>Astronomy Club</span></div>
+      <h1>Events</h1>
+      <p>Star parties, workshops, talks, and visits — everything the club has run and has coming up, in one timeline.
+      </p>
+    </header>
 
-  <nav class="filters" id="filters" aria-label="Filter events by category">
-    <button class="filter-btn active" data-filter="all">All</button>
-    <button class="filter-btn" data-filter="star-party">Star Parties</button>
-    <button class="filter-btn" data-filter="workshop">Workshops</button>
-    <button class="filter-btn" data-filter="internal-talk">Internal Talks</button>
-    <button class="filter-btn" data-filter="visit">Visits</button>
-  </nav>
+    <nav class="filters" id="filters" aria-label="Filter events by category">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="star-party">Star Parties</button>
+      <button class="filter-btn" data-filter="workshop">Workshops</button>
+      <button class="filter-btn" data-filter="internal-talk">Internal Talks</button>
+      <button class="filter-btn" data-filter="visit">Visits</button>
+    </nav>
 
-  <div class="timeline" id="timeline"></div>
-</div>
-
-<div class="modal-backdrop" id="modalBackdrop">
-  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-    <button class="modal-close" id="modalClose" aria-label="Close">&times;</button>
-    <div class="modal-kicker" id="modalKicker"></div>
-    <h2 id="modalTitle"></h2>
-    <div class="modal-meta">
-      <div><strong>When:</strong> <span id="modalWhen"></span></div>
-      <div><strong>Where:</strong> <span id="modalWhere"></span></div>
-    </div>
-    <p class="body" id="modalBody"></p>
+    <div class="timeline" id="timeline"></div>
   </div>
-</div>
 
-<script>
-  const ICONS = {
-    'star-party': '<path d="M8 1l1.8 4.6L14.5 6l-3.6 3.1L12 14 8 11.3 4 14l1.1-4.9L1.5 6l4.7-.4L8 1z" fill="none" stroke-width="1.4" stroke-linejoin="round"/>',
-    'workshop': '<path d="M2 14l4.2-4.2m0 0a2.6 2.6 0 103.6-3.6L13.5 2.5 12 1l-3.7 3.7a2.6 2.6 0 10-3.6 3.6z" fill="none" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/>',
-    'internal-talk': '<path d="M1.5 3h13v8h-6l-3 3v-3h-4z" fill="none" stroke-width="1.4" stroke-linejoin="round"/>',
-    'visit': '<circle cx="8" cy="8" r="6.5" fill="none" stroke-width="1.3"/><path d="M11 5l-2 4-4 2 2-4z" fill="none" stroke-width="1.2" stroke-linejoin="round"/>'
-  };
+  <div class="modal-backdrop" id="modalBackdrop">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <button class="modal-close" id="modalClose" aria-label="Close">&times;</button>
+      <div class="modal-kicker" id="modalKicker"></div>
+      <h2 id="modalTitle"></h2>
+      <div class="modal-meta">
+        <div><strong>When:</strong> <span id="modalWhen"></span></div>
+        <div><strong>Where:</strong> <span id="modalWhere"></span></div>
+      </div>
+      <p class="body" id="modalBody"></p>
+    </div>
+  </div>
 
-  const LABELS = {
-    'star-party': 'Star Party',
-    'workshop': 'Workshop',
-    'internal-talk': 'Internal Talk',
-    'visit': 'Visit'
-  };
+  <script>
+    const ICONS = {
+      'star-party': '<path d="M8 1l1.8 4.6L14.5 6l-3.6 3.1L12 14 8 11.3 4 14l1.1-4.9L1.5 6l4.7-.4L8 1z" fill="none" stroke-width="1.4" stroke-linejoin="round"/>',
+      'workshop': '<path d="M2 14l4.2-4.2m0 0a2.6 2.6 0 103.6-3.6L13.5 2.5 12 1l-3.7 3.7a2.6 2.6 0 10-3.6 3.6z" fill="none" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/>',
+      'internal-talk': '<path d="M1.5 3h13v8h-6l-3 3v-3h-4z" fill="none" stroke-width="1.4" stroke-linejoin="round"/>',
+      'visit': '<circle cx="8" cy="8" r="6.5" fill="none" stroke-width="1.3"/><path d="M11 5l-2 4-4 2 2-4z" fill="none" stroke-width="1.2" stroke-linejoin="round"/>'
+    };
 
-  // Placeholder data — swap in real events. Sorted newest first.
-  const events = [
-    {
-      category: 'star-party',
-      displayDate: '12 Sep 2026',
-      title: "Star Party '25",
-      excerpt: "An evening under open skies with telescopes set up for public viewing of planets and deep-sky objects.",
-      body: "Members set up six telescopes on the rooftop for a public viewing night, with Saturn, Jupiter, and the Andromeda galaxy on the observing list. New members got a hands-on walkthrough of telescope alignment and basic astrophotography.",
-      time: '7:00 PM – 10:00 PM',
-      location: 'Rooftop Observatory, Block C'
-    },
-    {
-      category: 'workshop',
-      displayDate: '12 Aug 2026',
-      title: 'Image Processing Workshop',
-      excerpt: 'Hands-on session on stacking and cleaning up astrophotography images shot at the last star party.',
-      body: "Walked through calibration frames, stacking in Siril, and basic noise reduction using images shot at the July star party. Attendees left with a processed image of the Orion Nebula from their own raw frames.",
-      time: '4:00 PM – 6:00 PM',
-      location: 'Lab 204'
-    },
-    {
-      category: 'workshop',
-      displayDate: '14 Feb 2026',
-      title: 'Telescope Assembly Workshop',
-      excerpt: 'Building and collimating a Dobsonian reflector from a kit, for members joining the club this year.',
-      body: "New members assembled and collimated an 8-inch Dobsonian reflector from a kit, covering mirror alignment, focuser setup, and basic maintenance to keep the club's telescopes in shape between events.",
-      time: '3:00 PM – 5:30 PM',
-      location: 'Workshop Room, Engineering Block'
-    },
-    {
-      category: 'star-party',
-      displayDate: '20 Nov 2025',
-      title: "Star Party '24",
-      excerpt: 'The club\'s largest turnout yet, timed around a favorable view of Jupiter\'s moons.',
-      body: "Open to the wider campus, with over 80 attendees across the evening. Four telescopes were dedicated to Jupiter and its moons, with a fifth set up for lunar observation for first-time visitors.",
-      time: '6:30 PM – 9:30 PM',
-      location: 'Rooftop Observatory, Block C'
-    },
-    {
-      category: 'internal-talk',
-      displayDate: '05 Jul 2026',
-      title: 'Life Cycles of Stars — Member Talk',
-      excerpt: 'A member-led talk on stellar evolution, from protostars to white dwarfs, neutron stars, and black holes.',
-      body: "Covered the stages of stellar evolution based on initial mass, with worked examples of what happens to stars like the Sun versus much larger stars. Ended with an open discussion on recent supernova observations.",
-      time: '5:00 PM – 6:00 PM',
-      location: 'Seminar Hall 2'
-    },
-    {
-      category: 'internal-talk',
-      displayDate: '18 May 2026',
-      title: 'Intro to Astrophotography',
-      excerpt: 'Camera settings, tracking basics, and what gear actually matters when starting out.',
-      body: "A practical, no-jargon introduction to astrophotography for members with just a DSLR and a tripod — covering exposure settings, basic star tracking, and which upgrades are actually worth it early on.",
-      time: '5:30 PM – 6:30 PM',
-      location: 'Seminar Hall 2'
-    },
-    {
-      category: 'visit',
-      displayDate: '22 Mar 2026',
-      title: 'Visit to IUCAA',
-      excerpt: 'A day trip to the Inter-University Centre for Astronomy and Astrophysics, including a lab tour.',
-      body: "Members toured the research labs and library at IUCAA, sat in on a short talk from a research scholar, and got a look at ongoing work on gravitational wave data analysis.",
-      time: 'Full day',
-      location: 'IUCAA, Pune'
-    },
-    {
-      category: 'visit',
-      displayDate: '10 Dec 2025',
-      title: 'Planetarium Visit',
-      excerpt: 'A group outing to the city planetarium for a special show on exoplanet discovery.',
-      body: "A group outing for members to catch a special planetarium show on exoplanet detection methods, followed by an informal discussion over dinner about upcoming club events.",
-      time: '4:00 PM – 7:00 PM',
-      location: 'City Planetarium'
-    },
-    {
-      category: 'star-party',
-      displayDate: '15 Jan 2027',
-      title: "Star Party '26",
-      excerpt: 'Upcoming: a winter star party planned around clear-sky forecasts and a new moon.',
-      body: "Planned for a new-moon night to maximize deep-sky visibility. Details on telescope sign-ups and RSVP will be shared closer to the date.",
-      time: '7:00 PM – 10:00 PM',
-      location: 'Rooftop Observatory, Block C'
-    }
-  ];
+    const LABELS = {
+      'star-party': 'Star Party',
+      'workshop': 'Workshop',
+      'internal-talk': 'Internal Talk',
+      'visit': 'Visit'
+    };
 
-  const timelineEl = document.getElementById('timeline');
-  const filtersEl = document.getElementById('filters');
+    // Placeholder data — swap in real events. Sorted newest first.
+    const events = [
+      {
+        category: 'star-party',
+        displayDate: '12 Sep 2026',
+        title: "Star Party '25",
+        excerpt: "An evening under open skies with telescopes set up for public viewing of planets and deep-sky objects.",
+        body: "Members set up six telescopes on the rooftop for a public viewing night, with Saturn, Jupiter, and the Andromeda galaxy on the observing list. New members got a hands-on walkthrough of telescope alignment and basic astrophotography.",
+        time: '7:00 PM – 10:00 PM',
+        location: 'Rooftop Observatory, Block C'
+      },
+      {
+        category: 'workshop',
+        displayDate: '12 Aug 2026',
+        title: 'Image Processing Workshop',
+        excerpt: 'Hands-on session on stacking and cleaning up astrophotography images shot at the last star party.',
+        body: "Walked through calibration frames, stacking in Siril, and basic noise reduction using images shot at the July star party. Attendees left with a processed image of the Orion Nebula from their own raw frames.",
+        time: '4:00 PM – 6:00 PM',
+        location: 'Lab 204'
+      },
+      {
+        category: 'workshop',
+        displayDate: '14 Feb 2026',
+        title: 'Telescope Assembly Workshop',
+        excerpt: 'Building and collimating a Dobsonian reflector from a kit, for members joining the club this year.',
+        body: "New members assembled and collimated an 8-inch Dobsonian reflector from a kit, covering mirror alignment, focuser setup, and basic maintenance to keep the club's telescopes in shape between events.",
+        time: '3:00 PM – 5:30 PM',
+        location: 'Workshop Room, Engineering Block'
+      },
+      {
+        category: 'star-party',
+        displayDate: '20 Nov 2025',
+        title: "Star Party '24",
+        excerpt: 'The club\'s largest turnout yet, timed around a favorable view of Jupiter\'s moons.',
+        body: "Open to the wider campus, with over 80 attendees across the evening. Four telescopes were dedicated to Jupiter and its moons, with a fifth set up for lunar observation for first-time visitors.",
+        time: '6:30 PM – 9:30 PM',
+        location: 'Rooftop Observatory, Block C'
+      },
+      {
+        category: 'internal-talk',
+        displayDate: '05 Jul 2026',
+        title: 'Life Cycles of Stars — Member Talk',
+        excerpt: 'A member-led talk on stellar evolution, from protostars to white dwarfs, neutron stars, and black holes.',
+        body: "Covered the stages of stellar evolution based on initial mass, with worked examples of what happens to stars like the Sun versus much larger stars. Ended with an open discussion on recent supernova observations.",
+        time: '5:00 PM – 6:00 PM',
+        location: 'Seminar Hall 2'
+      },
+      {
+        category: 'internal-talk',
+        displayDate: '18 May 2026',
+        title: 'Intro to Astrophotography',
+        excerpt: 'Camera settings, tracking basics, and what gear actually matters when starting out.',
+        body: "A practical, no-jargon introduction to astrophotography for members with just a DSLR and a tripod — covering exposure settings, basic star tracking, and which upgrades are actually worth it early on.",
+        time: '5:30 PM – 6:30 PM',
+        location: 'Seminar Hall 2'
+      },
+      {
+        category: 'visit',
+        displayDate: '22 Mar 2026',
+        title: 'Visit to IUCAA',
+        excerpt: 'A day trip to the Inter-University Centre for Astronomy and Astrophysics, including a lab tour.',
+        body: "Members toured the research labs and library at IUCAA, sat in on a short talk from a research scholar, and got a look at ongoing work on gravitational wave data analysis.",
+        time: 'Full day',
+        location: 'IUCAA, Pune'
+      },
+      {
+        category: 'visit',
+        displayDate: '10 Dec 2025',
+        title: 'Planetarium Visit',
+        excerpt: 'A group outing to the city planetarium for a special show on exoplanet discovery.',
+        body: "A group outing for members to catch a special planetarium show on exoplanet detection methods, followed by an informal discussion over dinner about upcoming club events.",
+        time: '4:00 PM – 7:00 PM',
+        location: 'City Planetarium'
+      },
+      {
+        category: 'star-party',
+        displayDate: '15 Jan 2027',
+        title: "Star Party '26",
+        excerpt: 'Upcoming: a winter star party planned around clear-sky forecasts and a new moon.',
+        body: "Planned for a new-moon night to maximize deep-sky visibility. Details on telescope sign-ups and RSVP will be shared closer to the date.",
+        time: '7:00 PM – 10:00 PM',
+        location: 'Rooftop Observatory, Block C'
+      }
+    ];
 
-  function renderTimeline(filter){
-    const filtered = filter === 'all' ? events : events.filter(e => e.category === filter);
-    timelineEl.innerHTML = '';
+    const timelineEl = document.getElementById('timeline');
+    const filtersEl = document.getElementById('filters');
 
-    if(filtered.length === 0){
-      timelineEl.innerHTML = '<p class="empty-state">No events in this category yet.</p>';
-      return;
-    }
+    function renderTimeline(filter) {
+      const filtered = filter === 'all' ? events : events.filter(e => e.category === filter);
+      timelineEl.innerHTML = '';
 
-    filtered.forEach((ev, i) => {
-      const item = document.createElement('div');
-      item.className = 'event';
-      item.style.animationDelay = (i * 0.05) + 's';
-      item.innerHTML = `
+      if (filtered.length === 0) {
+        timelineEl.innerHTML = '<p class="empty-state">No events in this category yet.</p>';
+        return;
+      }
+
+      filtered.forEach((ev, i) => {
+        const item = document.createElement('div');
+        item.className = 'event';
+        item.style.animationDelay = (i * 0.05) + 's';
+        item.innerHTML = `
         <div class="node" aria-hidden="true">
           <svg viewBox="0 0 16 16">${ICONS[ev.category]}</svg>
         </div>
@@ -490,72 +532,118 @@
         <p class="event-excerpt">${ev.excerpt}</p>
         <button class="read-more" type="button">Read More</button>
       `;
-      item.querySelector('.read-more').addEventListener('click', () => openModal(ev));
-      timelineEl.appendChild(item);
+        item.querySelector('.read-more').addEventListener('click', () => openModal(ev));
+        timelineEl.appendChild(item);
+      });
+    }
+
+    filtersEl.addEventListener('click', (e) => {
+      const btn = e.target.closest('.filter-btn');
+      if (!btn) return;
+      filtersEl.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderTimeline(btn.dataset.filter);
     });
-  }
 
-  filtersEl.addEventListener('click', (e) => {
-    const btn = e.target.closest('.filter-btn');
-    if(!btn) return;
-    filtersEl.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    renderTimeline(btn.dataset.filter);
-  });
+    // Modal
+    const backdrop = document.getElementById('modalBackdrop');
+    const modalKicker = document.getElementById('modalKicker');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalWhen = document.getElementById('modalWhen');
+    const modalWhere = document.getElementById('modalWhere');
+    const modalBody = document.getElementById('modalBody');
+    let lastFocused = null;
 
-  // Modal
-  const backdrop = document.getElementById('modalBackdrop');
-  const modalKicker = document.getElementById('modalKicker');
-  const modalTitle = document.getElementById('modalTitle');
-  const modalWhen = document.getElementById('modalWhen');
-  const modalWhere = document.getElementById('modalWhere');
-  const modalBody = document.getElementById('modalBody');
-  let lastFocused = null;
+    function openModal(ev) {
+      modalKicker.textContent = LABELS[ev.category] + ' · ' + ev.displayDate;
+      modalTitle.textContent = ev.title;
+      modalWhen.textContent = ev.time;
+      modalWhere.textContent = ev.location;
+      modalBody.textContent = ev.body;
+      lastFocused = document.activeElement;
+      backdrop.classList.add('open');
+      document.getElementById('modalClose').focus();
+      document.addEventListener('keydown', onKeydown);
+    }
 
-  function openModal(ev){
-    modalKicker.textContent = LABELS[ev.category] + ' · ' + ev.displayDate;
-    modalTitle.textContent = ev.title;
-    modalWhen.textContent = ev.time;
-    modalWhere.textContent = ev.location;
-    modalBody.textContent = ev.body;
-    lastFocused = document.activeElement;
-    backdrop.classList.add('open');
-    document.getElementById('modalClose').focus();
-    document.addEventListener('keydown', onKeydown);
-  }
+    function closeModal() {
+      backdrop.classList.remove('open');
+      document.removeEventListener('keydown', onKeydown);
+      if (lastFocused) lastFocused.focus();
+    }
 
-  function closeModal(){
-    backdrop.classList.remove('open');
-    document.removeEventListener('keydown', onKeydown);
-    if(lastFocused) lastFocused.focus();
-  }
+    function onKeydown(e) {
+      if (e.key === 'Escape') closeModal();
+    }
 
-  function onKeydown(e){
-    if(e.key === 'Escape') closeModal();
-  }
+    document.getElementById('modalClose').addEventListener('click', closeModal);
+    backdrop.addEventListener('click', (e) => {
+      if (e.target === backdrop) closeModal();
+    });
 
-  document.getElementById('modalClose').addEventListener('click', closeModal);
-  backdrop.addEventListener('click', (e) => {
-    if(e.target === backdrop) closeModal();
-  });
+    renderTimeline('all');
+  </script>
 
-  renderTimeline('all');
-</script>
-
-<div class="events-experience">
-  <video class="events-background" autoplay muted playsinline loop preload="metadata" aria-hidden="true"><source src="../static/assets/galaxy_small.mp4" type="video/mp4"></video><div class="events-veil"></div>
-  <nav class="events-nav"><a class="events-brand" href="../index.html"><span>✦</span> ANTARIKSH <small>CLUB</small></a><div class="events-nav-links"><a href="../index.html">Home</a><a class="active" href="events.html">Events</a><a href="gallery.html">Gallery</a><a href="projects.html">Projects</a></div><a class="events-join" href="mailto:hello@antariksh.club">Join the crew ↗</a></nav>
-  <main class="events-main">
-    <aside class="events-timeline"><p>EVENT TIMELINE</p><span>Explore our key events<br>across generations</span><ol><li><b>2026</b><span>Workshops, talks & skywatching</span></li><li><b>2025</b><span>Star Party & field visits</span></li><li><b>2024</b><span>Science day exhibition</span></li><li><b>2023</b><span>Outreach & community</span></li></ol></aside>
-    <section class="events-content"><header class="events-heading"><p>OUR JOURNEY</p><h1>EVENTS <em>&amp;<br>ACTIVITIES</em></h1><span class="events-note">Different events.<br>Same sky.<br>One club. ✦</span><div>From hands-on workshops to inspiring talks, exhibitions and outreach — explore the journeys that bring our club together.</div></header>
-      <section class="event-shelf"><div class="shelf-head"><h2>✦ EVENTS WE ORGANISED</h2><button class="event-filter active" data-filter="all">View all →</button></div><div class="event-card-grid" id="organised-events"></div></section>
-      <section class="event-shelf"><div class="shelf-head"><h2>⌁ OUTREACH, TALKS &amp; PODCASTS</h2><button class="event-filter" data-filter="outreach">View all →</button></div><div class="event-card-grid event-card-grid-wide" id="outreach-events"></div></section>
-    </section>
-  </main>
-  <footer class="events-footer">EXPLORE <span>✦</span> LEARN <span>✦</span> GROW</footer>
-  <div class="event-lightbox" id="event-lightbox" aria-hidden="true"><article class="magazine-modal" role="dialog" aria-modal="true" aria-labelledby="lightbox-title"><button class="lightbox-close" type="button" aria-label="Close event details">×</button><div class="magazine-image"><img id="lightbox-image" alt=""><small>ANTARIKSH EVENT ARCHIVE</small></div><div class="magazine-copy"><p id="lightbox-kicker">ANTARIKSH / EVENT LOG</p><h2 id="lightbox-title"></h2><i></i><p id="lightbox-description"></p><div class="magazine-meta"><span id="lightbox-venue"></span><span id="lightbox-date"></span></div></div></article></div>
-</div>
-<script src="../static/js/events.js"></script>
+  <div class="events-experience">
+    <video class="events-background" autoplay muted playsinline loop preload="metadata" aria-hidden="true">
+      <source src="../static/assets/galaxy_small.mp4" type="video/mp4">
+    </video>
+    <div class="events-veil"></div>
+    <nav class="events-nav"><a class="events-brand" href="../index.html"><span>✦</span> ANTARIKSH
+        <small>CLUB</small></a>
+      <div class="events-nav-links"><a href="../index.html">Home</a><a class="active" href="events.html">Events</a><a
+          href="gallery.html">Gallery</a><a href="projects.html">Projects</a></div><a class="events-join"
+        href="mailto:hello@antariksh.club">Join the crew ↗</a>
+    </nav>
+    <main class="events-main">
+      <aside class="events-timeline">
+        <p>EVENT TIMELINE</p><span>Explore our key events<br>across generations</span>
+        <ol>
+          <li><b>2026</b><span>Workshops, talks & skywatching</span></li>
+          <li><b>2025</b><span>Star Party & field visits</span></li>
+          <li><b>2024</b><span>Science day exhibition</span></li>
+          <li><b>2023</b><span>Outreach & community</span></li>
+        </ol>
+      </aside>
+      <section class="events-content">
+        <header class="events-heading">
+          <p>OUR JOURNEY</p>
+          <h1>EVENTS <em>&amp;<br>ACTIVITIES</em></h1><span class="events-note">Different events.<br>Same sky.<br>One
+            club. ✦</span>
+          <div>From hands-on workshops to inspiring talks, exhibitions and outreach — explore the journeys that bring
+            our club together.</div>
+        </header>
+        <section class="event-shelf">
+          <div class="shelf-head">
+            <h2>✦ EVENTS WE ORGANISED</h2><button class="event-filter active" data-filter="all">View all →</button>
+          </div>
+          <div class="event-card-grid" id="organised-events"></div>
+        </section>
+        <section class="event-shelf">
+          <div class="shelf-head">
+            <h2>⌁ OUTREACH, TALKS &amp; PODCASTS</h2><button class="event-filter" data-filter="outreach">View all
+              →</button>
+          </div>
+          <div class="event-card-grid event-card-grid-wide" id="outreach-events"></div>
+        </section>
+      </section>
+    </main>
+    <footer class="events-footer">EXPLORE <span>✦</span> LEARN <span>✦</span> GROW</footer>
+    <div class="event-lightbox" id="event-lightbox" aria-hidden="true">
+      <article class="magazine-modal" role="dialog" aria-modal="true" aria-labelledby="lightbox-title"><button
+          class="lightbox-close" type="button" aria-label="Close event details">×</button>
+        <div class="magazine-image"><img id="lightbox-image" alt=""><small>ANTARIKSH EVENT ARCHIVE</small></div>
+        <div class="magazine-copy">
+          <p id="lightbox-kicker">ANTARIKSH / EVENT LOG</p>
+          <h2 id="lightbox-title"></h2><i></i>
+          <p id="lightbox-description"></p>
+          <div class="magazine-meta"><span id="lightbox-venue"></span><span id="lightbox-date"></span></div>
+        </div>
+      </article>
+    </div>
+  </div>
+  <script src="../static/js/events.js"></script>
 
 </body>
+
 </html>

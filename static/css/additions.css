@@ -8,6 +8,7 @@
   object-fit: cover;
   background: #09091b;
 }
+
 .site-galaxy-veil {
   position: fixed;
   inset: 0;
@@ -15,19 +16,24 @@
   pointer-events: none;
   background: rgba(9, 9, 27, 0.72);
 }
+
 body {
   background: transparent;
 }
-body > :not(.site-galaxy-background):not(.site-galaxy-veil) {
+
+body> :not(.site-galaxy-background):not(.site-galaxy-veil) {
   position: relative;
   z-index: 2;
 }
+
 .noise {
   z-index: 20;
 }
+
 .cursor-glow {
   z-index: 3;
 }
+
 .about,
 .missions,
 .flight-log,
@@ -38,42 +44,50 @@ body > :not(.site-galaxy-background):not(.site-galaxy-veil) {
 footer {
   background: transparent !important;
 }
+
 .about {
   color: var(--paper);
 }
+
 .about .kicker {
   color: var(--blue);
 }
+
 .about .text-link {
   color: var(--paper);
 }
+
 .flight-log {
   color: var(--paper);
 }
+
 .flight-log .gallery-line {
   border-color: #ffffff45;
   color: #d6d3e6;
 }
+
 .quote-section {
   color: var(--paper);
 }
+
 .quote-orbit {
   border-color: #ffffff52;
 }
+
 .gallery-area {
   padding: 70px 0 145px;
 }
+
 .marquee {
   overflow: hidden;
   width: 100%;
-  mask-image: linear-gradient(
-    90deg,
-    transparent,
-    #000 8%,
-    #000 92%,
-    transparent
-  );
+  mask-image: linear-gradient(90deg,
+      transparent,
+      #000 8%,
+      #000 92%,
+      transparent);
 }
+
 .marquee-track {
   display: flex;
   width: max-content;
@@ -81,9 +95,11 @@ footer {
   animation: flight-marquee 34s linear infinite;
   padding: 0 8px;
 }
+
 .marquee:hover .marquee-track {
   animation-play-state: paused;
 }
+
 .marquee-item {
   position: relative;
   width: clamp(270px, 25vw, 410px);
@@ -92,6 +108,7 @@ footer {
   background: #9bb3b5;
   flex: none;
 }
+
 .marquee-item img {
   width: 100%;
   height: 100%;
@@ -102,16 +119,19 @@ footer {
     transform 0.6s ease,
     filter 0.35s;
 }
+
 .marquee-item:hover img {
   transform: scale(1.08);
   filter: saturate(1.1);
 }
+
 .marquee-item:after {
   content: "";
   position: absolute;
   inset: 0;
   background: linear-gradient(0deg, rgba(9, 9, 27, 0.82), transparent 60%);
 }
+
 .marquee-label {
   position: absolute;
   left: 18px;
@@ -119,6 +139,7 @@ footer {
   z-index: 1;
   color: #fff;
 }
+
 .marquee-label strong {
   font:
     600 1.15rem "Space Grotesk",
@@ -126,6 +147,7 @@ footer {
   display: block;
   letter-spacing: -0.04em;
 }
+
 .marquee-label span {
   font:
     500 0.57rem "DM Mono",
@@ -135,19 +157,23 @@ footer {
   display: block;
   margin-top: 6px;
 }
+
 @keyframes flight-marquee {
   to {
     transform: translateX(-50%);
   }
 }
+
 .members {
   background: var(--ink);
   color: var(--paper);
   overflow: hidden;
 }
+
 .members .kicker {
   color: var(--acid);
 }
+
 .members-intro {
   display: grid;
   grid-template-columns: 1fr 1.3fr;
@@ -155,6 +181,7 @@ footer {
   align-items: end;
   margin-bottom: 64px;
 }
+
 .members h2 {
   font:
     700 clamp(3.4rem, 7vw, 7.2rem)/0.82 "Space Grotesk",
@@ -162,20 +189,24 @@ footer {
   letter-spacing: -0.09em;
   margin: 0;
 }
+
 .members h2 em {
   font-family: Outfit, sans-serif;
   font-weight: 400;
 }
-.members-intro > p:last-child {
+
+.members-intro>p:last-child {
   max-width: 285px;
   line-height: 1.5;
   margin: 0 0 5px;
 }
+
 .member-deck {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 16px;
 }
+
 .member-card {
   min-height: 475px;
   position: relative;
@@ -188,6 +219,7 @@ footer {
     transform 0.35s ease,
     box-shadow 0.35s ease;
 }
+
 .member-card:hover {
   transform: translateY(-12px);
   box-shadow:
@@ -195,6 +227,7 @@ footer {
     0 10px 35px #bf69ff60,
     0 0 75px #7a00b570;
 }
+
 .member-image {
   height: 245px;
   position: relative;
@@ -205,6 +238,7 @@ footer {
   font: 500 5rem/1 "Space Grotesk";
   color: var(--acid);
 }
+
 .member-image img {
   position: absolute;
   inset: 0;
@@ -216,10 +250,12 @@ footer {
     transform 0.6s ease,
     filter 0.4s ease;
 }
+
 .member-card:hover .member-image img {
   transform: scale(1.09);
   filter: saturate(0.9) contrast(1.1) brightness(0.72);
 }
+
 .member-image:before,
 .member-image:after {
   content: "";
@@ -228,34 +264,41 @@ footer {
   border: 1px solid #ffffff55;
   border-radius: 50%;
 }
+
 .member-image:before {
   width: 250px;
   height: 90px;
   transform: rotate(-18deg);
 }
+
 .member-image:after {
   width: 130px;
   height: 130px;
 }
+
 .member-image span {
   position: relative;
   z-index: 2;
   text-shadow: 0 0 25px var(--acid);
 }
+
 .member-copy {
   padding: 25px;
 }
+
 .member-copy p,
-.member-copy > span {
+.member-copy>span {
   font:
     500 0.61rem "DM Mono",
     monospace;
   letter-spacing: 0.11em;
 }
+
 .member-copy p {
   color: var(--acid);
   margin: 0 0 18px;
 }
+
 .member-copy h3 {
   font:
     600 clamp(1.65rem, 2.5vw, 2.8rem)/0.82 "Space Grotesk",
@@ -263,54 +306,68 @@ footer {
   letter-spacing: -0.08em;
   margin: 0 0 24px;
 }
-.member-copy > span {
+
+.member-copy>span {
   color: #e8caff;
 }
+
 @media (max-width: 767px) {
   .gallery-area {
     padding: 55px 0 90px;
   }
+
   .marquee-track {
     gap: 10px;
     animation-duration: 26s;
   }
+
   .marquee-item {
     width: 250px;
     height: 310px;
   }
+
   .members-intro {
     display: block;
     margin-bottom: 42px;
   }
-  .members-intro > p:last-child {
+
+  .members-intro>p:last-child {
     margin-top: 24px;
   }
+
   .member-deck {
     grid-template-columns: repeat(2, 1fr);
     gap: 10px;
   }
+
   .member-card {
     min-height: 370px;
   }
+
   .member-image {
     height: 185px;
     font-size: 3.6rem;
   }
+
   .member-image:before {
     width: 180px;
     height: 70px;
   }
+
   .member-image:after {
     width: 95px;
     height: 95px;
   }
+
   .member-copy {
     padding: 18px;
   }
+
   .member-copy h3 {
     font-size: 1.65rem;
   }
 }
+
 @media (prefers-reduced-motion: reduce) {
   .marquee-track {
     animation: none;

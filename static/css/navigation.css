@@ -7,9 +7,13 @@
   backdrop-filter: blur(14px);
 }
 
-.navbar.scrolled { padding: 21px 0; }
+.navbar.scrolled {
+  padding: 21px 0;
+}
 
-.nav-more-wrap { position: relative; }
+.nav-more-wrap {
+  position: relative;
+}
 
 .nav-more-toggle {
   display: inline-flex;
@@ -51,15 +55,32 @@
   text-decoration: none;
 }
 
-.nav-more a:hover { color: var(--acid); }
+.nav-more a:hover {
+  color: var(--acid);
+}
 
 @media (min-width: 992px) {
-  .mobile-nav-toggle { display: none; }
+  .mobile-nav-toggle {
+    display: none;
+  }
 }
 
 @media (max-width: 991px) {
-  .navbar { min-height: 76px; }
-  .nav-more-wrap { width: 100%; }
-  .nav-more-toggle { margin: 4px 0; }
-  .nav-more { position: static; width: 100%; margin-top: 7px; }
+  .navbar {
+    min-height: 76px;
+  }
+
+  .nav-more-wrap {
+    width: 100%;
+  }
+
+  .nav-more-toggle {
+    margin: 4px 0;
+  }
+
+  .nav-more {
+    position: static;
+    width: 100%;
+    margin-top: 7px;
+  }
 }
