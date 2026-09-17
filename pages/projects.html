@@ -505,9 +505,15 @@
       }
     }
   </style>
+  <link rel="stylesheet" href="../static/css/projects-cards.css">
+  <link rel="stylesheet" href="../static/css/projects-sections.css">
 </head>
 
 <body>
+  <video class="projects-galaxy" autoplay muted playsinline loop preload="metadata" aria-hidden="true">
+    <source src="../static/assets/galaxy_small.mp4" type="video/mp4">
+  </video>
+  <div class="projects-veil" aria-hidden="true"></div>
 
   <header>
     <div class="wrap nav">
@@ -518,7 +524,7 @@
           <li><a href="events.html">Events</a></li>
           <li><a href="gallery.html">Gallery</a></li>
           <li><a href="projects.html" class="active">Projects</a></li>
-          <li><a href="#">Articles</a></li>
+          <li><button class="article-button" type="button">Articles</button></li>
         </ul>
       </nav>
     </div>
@@ -526,9 +532,9 @@
 
   <main class="wrap">
     <section class="intro">
-      <div class="eyebrow-row"><span class="orbit-dot"></span><span class="kicker">Mission patches</span></div>
+      <div class="eyebrow-row"><span class="orbit-dot"></span><span class="kicker">PROJECT LOG / ACTIVE</span></div>
       <h1>What we've built</h1>
-      <p>Every project the club has flown gets its own patch. Click one to open the full build file.</p>
+      <p>Experiments, instruments, and tools made by the Antariksh crew. Explore the current build archive below.</p>
     </section>
 
     <div class="filters">
@@ -624,36 +630,23 @@
       }
     ];
 
-    function patchSVG(p, i) {
-      const color = STATUS_COLOR[p.status];
-      return `
-    <svg width="150" height="150" viewBox="0 0 160 160" class="patch" data-id="${p.id}">
-      <defs><path id="arcTop-${i}" d="M20,86 a60,60 0 1,1 120,0" fill="none"/></defs>
-      <circle cx="80" cy="80" r="74" fill="#12162b" stroke="${color}" stroke-width="3"/>
-      <circle cx="80" cy="80" r="63" fill="none" stroke="var(--line-strong)" stroke-width="1" stroke-dasharray="2 4"/>
-      <g transform="translate(80,86)" color="${color}">${ICONS[p.icon]}</g>
-      <text font-size="9.5" letter-spacing="1.5" fill="var(--text)" font-family="Space Grotesk">
-        <textPath href="#arcTop-${i}" startOffset="50%" text-anchor="middle">${p.title.toUpperCase()}</textPath>
-      </text>
-      <text x="80" y="128" font-size="8.5" letter-spacing="2" fill="var(--text-faint)" font-family="JetBrains Mono" text-anchor="middle">${p.code}</text>
-    </svg>`;
-    }
-
     const board = document.getElementById('board');
     function render(list) {
       board.innerHTML = list.map((p, i) => `
-      <div class="patch-wrap" data-id="${p.id}">
-        <span class="pin"></span>
-        ${patchSVG(p, i)}
-        <div class="patch-name">${p.title}</div>
-        <div class="patch-status">${STATUS_LABEL[p.status]}</div>
-      </div>
+      <article class="project-card project-card-${i + 1}" data-id="${p.id}">
+        <div class="project-image project-image-${p.id}"><span>${p.code}</span></div>
+        <div class="project-copy"><p class="project-status">${STATUS_LABEL[p.status]} / ${p.code}</p><h2>${p.title}</h2><p>${p.body[0]}</p><button class="project-open" type="button">OPEN BUILD LOG <b>↗</b></button></div>
+        <aside class="project-actions"><div><span>STATUS AND<br>RESOURCES</span><b>${STATUS_LABEL[p.status].toUpperCase()}</b><small>${p.stage + 1} / ${STAGES.length} BUILD STAGES</small></div><button class="project-article" type="button">VIEW ARTICLE</button></aside>
+        <div class="project-crew"><span>CREW</span>${p.team.map(member => `<b>${member}</b>`).join('')}</div>
+      </article>
     `).join('');
-      board.querySelectorAll('.patch-wrap').forEach(el => {
+      board.querySelectorAll('.project-card').forEach(el => {
         el.addEventListener('click', () => openDossier(el.dataset.id));
       });
+      board.querySelectorAll('.project-article').forEach(button => button.addEventListener('click', event => event.stopPropagation()));
     }
     render(PROJECTS);
+
 
     document.querySelectorAll('.filter').forEach(btn => {
       btn.addEventListener('click', () => {
