@@ -82,6 +82,7 @@
       color: var(--text-primary);
     }
 
+    /* .mp4 */
     header.masthead p {
       font-size: 16px;
       color: var(--text-muted);
@@ -371,6 +372,8 @@
     }
   </style>
   <link rel="stylesheet" href="../static/css/events.css">
+  <link rel="stylesheet" href="../static/css/event-year-layout.css">
+  <link rel="stylesheet" href="../static/css/event-year-adjustments.css">
 </head>
 
 <body>
@@ -586,7 +589,7 @@
 
   <div class="events-experience">
     <video class="events-background" autoplay muted playsinline loop preload="metadata" aria-hidden="true">
-      <source src="../static/assets/galaxy_small.mp4" type="video/mp4">
+      <source src="../static/assets/green_galaxy.mp4" type="video/mp4">
     </video>
     <div class="events-veil"></div>
     <nav class="events-nav"><a class="events-brand" href="../index.html"><span>✦</span> ANTARIKSH
@@ -596,15 +599,6 @@
         href="mailto:hello@antariksh.club">Join the crew ↗</a>
     </nav>
     <main class="events-main">
-      <aside class="events-timeline">
-        <p>EVENT TIMELINE</p><span>Explore our key events<br>across generations</span>
-        <ol>
-          <li><b>2026</b><span>Workshops, talks & skywatching</span></li>
-          <li><b>2025</b><span>Star Party & field visits</span></li>
-          <li><b>2024</b><span>Science day exhibition</span></li>
-          <li><b>2023</b><span>Outreach & community</span></li>
-        </ol>
-      </aside>
       <section class="events-content">
         <header class="events-heading">
           <p>OUR JOURNEY</p>
@@ -613,18 +607,18 @@
           <div>From hands-on workshops to inspiring talks, exhibitions and outreach — explore the journeys that bring
             our club together.</div>
         </header>
-        <section class="event-shelf">
-          <div class="shelf-head">
-            <h2>✦ EVENTS WE ORGANISED</h2><button class="event-filter active" data-filter="all">View all →</button>
-          </div>
+        <div class="orbit-intro"><span>EVENT ARCHIVE / ACTIVE</span>
+          <p>A collection of moments in orbit. Select a transmission to read its full story.</p>
+        </div>
+        <section class="event-orbit" aria-label="Event archive mosaic">
+          <aside class="event-year-card year-26"><span>EVENTS</span><b>2<br>0<br>2<br>6</b><small>CURRENT ORBIT</small>
+          </aside>
+          <aside class="event-year-card year-25"><span>EVENTS</span><b>2<br>0<br>2<br>5</b><small>PAST ORBIT</small>
+          </aside>
+          <div class="orbit-message"><b>LOOK UP.<br>MAKE.<br>EXPLORE.</b><span>ANTARIKSH / 2026</span></div>
           <div class="event-card-grid" id="organised-events"></div>
-        </section>
-        <section class="event-shelf">
-          <div class="shelf-head">
-            <h2>⌁ OUTREACH, TALKS &amp; PODCASTS</h2><button class="event-filter" data-filter="outreach">View all
-              →</button>
-          </div>
           <div class="event-card-grid event-card-grid-wide" id="outreach-events"></div>
+          <div class="orbit-status"><i></i> SIGNALS NOMINAL <span>7 EVENTS LOGGED</span></div>
         </section>
       </section>
     </main>
