@@ -39,7 +39,7 @@ body:before {
 .project-copy {
     min-height: 290px;
     padding: 38px 42px !important;
-    background: linear-gradient(135deg, rgba(70, 72, 152, .88), rgba(64, 42, 126, .9)) !important;
+    background: linear-gradient(135deg, rgba(7, 8, 43, 0.88), rgba(64, 42, 126, .9)) !important;
     border: 1px solid #91b2cb66;
     position: relative
 }
@@ -78,7 +78,7 @@ body:before {
 .project-actions>div,
 .project-article {
     border: 1px solid #91b2cb66;
-    background: rgba(7, 15, 35, .87);
+    background: rgba(7, 24, 67, .87);
     color: #eff6ff;
     display: flex;
     align-items: center;
@@ -137,7 +137,7 @@ body:before {
     width: auto !important;
     height: 42px !important;
     border-radius: 0 !important;
-    background: #687eb1 !important;
+    background: #103b93 !important;
     color: #fff !important;
     font-size: .7rem !important
 }
