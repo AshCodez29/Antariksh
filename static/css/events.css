@@ -412,7 +412,7 @@ body {
 
 .events-veil {
     z-index: -1;
-    background: linear-gradient(120deg, rgba(9, 0, 25, .86), rgba(32, 0, 57, .68) 48%, rgba(7, 0, 20, .89))
+    background: linear-gradient(120deg, rgba(9, 0, 25, .86), rgba(39, 21, 52, 0.68) 48%, rgba(0, 22, 61, 0.89))
 }
 
 .events-nav {
