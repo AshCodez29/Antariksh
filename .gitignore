@@ -36,5 +36,18 @@ build/
 *.log
 .cache/
 
+# Bundler, Vite & Next caches (Very heavy)
+.vite/
+.parcel-cache/
+.next/
+.turbo/
+.rollup.cache/
 
+# Testing & Coverage
+coverage/
+.nyc_output/
+
+# Lockfiles and temporary files
+package-lock.json.bak
+*.tsbuildinfo
 
