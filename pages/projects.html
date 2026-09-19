@@ -507,6 +507,7 @@
   </style>
   <link rel="stylesheet" href="../static/css/projects-cards.css">
   <link rel="stylesheet" href="../static/css/projects-sections.css">
+  <link rel="stylesheet" href="../static/css/projects-stack.css">
   <script src="../static/js/script.js"></script>
   <link rel="stylesheet" href="../static/css/navbar.css">
 </head>
@@ -539,6 +540,48 @@
       <div class="eyebrow-row"><span class="orbit-dot"></span><span class="kicker">PROJECT LOG / ACTIVE</span></div>
       <h1>What we've built</h1>
       <p>Experiments, instruments, and tools made by the Antariksh crew. Explore the current build archive below.</p>
+    </section>
+
+    <section class="project-stack-section" aria-labelledby="stack-title">
+      <div class="stack-heading"><span class="mono">HIGHLIGHTED TRANSMISSIONS</span>
+        <h2 id="stack-title">On the launch pad</h2>
+      </div>
+      <div class="project-stack" id="project-stack" aria-roledescription="carousel" aria-label="Highlighted projects">
+        <article class="stack-card" data-title="Automated Sky Tracker" data-status="ONGOING / HARDWARE" data-index="1">
+          <img src="https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?auto=format&fit=crop&w=1500&q=85"
+            alt="Placeholder image for the Automated Sky Tracker project">
+          <div class="stack-card-bar">
+            <div><span>ONGOING / HARDWARE</span><strong>Automated Sky Tracker</strong></div><b>01 / 04</b>
+          </div>
+        </article>
+        <article class="stack-card" data-title="Radio Signal Lab" data-status="UPCOMING / RESEARCH" data-index="2">
+          <img src="https://images.unsplash.com/photo-1517976547714-720226b864c1?auto=format&fit=crop&w=1500&q=85"
+            alt="Placeholder image for the Radio Signal Lab project">
+          <div class="stack-card-bar">
+            <div><span>UPCOMING / RESEARCH</span><strong>Radio Signal Lab</strong></div><b>02 / 04</b>
+          </div>
+        </article>
+        <article class="stack-card" data-title="Deep Sky Pipeline" data-status="ONGOING / SOFTWARE" data-index="3">
+          <img src="https://images.unsplash.com/photo-1462331940025-496dfbfc7564?auto=format&fit=crop&w=1500&q=85"
+            alt="Placeholder image for the Deep Sky Pipeline project">
+          <div class="stack-card-bar">
+            <div><span>ONGOING / SOFTWARE</span><strong>Deep Sky Pipeline</strong></div><b>03 / 04</b>
+          </div>
+        </article>
+        <article class="stack-card" data-title="Telescope Booking Tool" data-status="PROTOTYPE / SOFTWARE"
+          data-index="4">
+          <img src="https://images.unsplash.com/photo-1419242902214-272b3f66ee7a?auto=format&fit=crop&w=1500&q=85"
+            alt="Placeholder image for the Telescope Booking Tool project">
+          <div class="stack-card-bar">
+            <div><span>PROTOTYPE / SOFTWARE</span><strong>Telescope Booking Tool</strong></div><b>04 / 04</b>
+          </div>
+        </article>
+      </div>
+      <div class="stack-controls"><button class="stack-arrow" id="stack-prev" type="button"
+          aria-label="Previous highlighted project">←</button>
+        <div class="stack-dots" id="stack-dots" aria-label="Choose a highlighted project"></div><button
+          class="stack-arrow" id="stack-next" type="button" aria-label="Next highlighted project">→</button>
+      </div>
     </section>
 
     <div class="filters">
@@ -635,6 +678,31 @@
     ];
 
     const board = document.getElementById('board');
+
+    const stackCards = [...document.querySelectorAll('.stack-card')];
+    const stackDots = document.getElementById('stack-dots');
+    let activeStackCard = 0;
+    stackCards.forEach((card, index) => {
+      const dot = document.createElement('button');
+      dot.type = 'button';
+      dot.setAttribute('aria-label', `Show ${card.dataset.title}`);
+      dot.addEventListener('click', () => setStackCard(index));
+      stackDots.appendChild(dot);
+      card.addEventListener('click', () => setStackCard((activeStackCard + 1) % stackCards.length));
+    });
+    function setStackCard(next) {
+      activeStackCard = (next + stackCards.length) % stackCards.length;
+      stackCards.forEach((card, index) => {
+        const distance = (index - activeStackCard + stackCards.length) % stackCards.length;
+        card.dataset.depth = distance;
+        card.setAttribute('aria-hidden', distance > 2 ? 'true' : 'false');
+      });
+      [...stackDots.children].forEach((dot, index) => dot.classList.toggle('is-active', index === activeStackCard));
+    }
+    document.getElementById('stack-prev').addEventListener('click', () => setStackCard(activeStackCard - 1));
+    document.getElementById('stack-next').addEventListener('click', () => setStackCard(activeStackCard + 1));
+    setStackCard(0);
+
     function render(list) {
       board.innerHTML = list.map((p, i) => `
       <article class="project-card project-card-${i + 1}" data-id="${p.id}">
