@@ -1,13 +1,21 @@
-import React, { useState, useEffect } from 'react';
-import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
-import { highlightedProjects, boardProjects, STAGES } from '../data/projectsData';
+import React, { useState, useEffect } from "react";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
+import {
+  highlightedProjects,
+  boardProjects,
+  STAGES,
+} from "../data/projectsData";
 
-const STATUS_LABEL = { completed: 'Completed', ongoing: 'Ongoing', prototype: 'Prototype' };
+const STATUS_LABEL = {
+  completed: "Completed",
+  ongoing: "Ongoing",
+  prototype: "Prototype",
+};
 
 export default function Projects() {
   const [activeStackIndex, setActiveStackIndex] = useState(0);
-  const [activeFilter, setActiveFilter] = useState('all');
+  const [activeFilter, setActiveFilter] = useState("all");
   const [activeDossier, setActiveDossier] = useState(null);
   const [isFilterDropdownOpen, setIsFilterDropdownOpen] = useState(false);
 
@@ -16,39 +24,50 @@ export default function Projects() {
   };
 
   const prevStack = () => {
-    setActiveStackIndex((prev) => (prev - 1 + highlightedProjects.length) % highlightedProjects.length);
+    setActiveStackIndex(
+      (prev) =>
+        (prev - 1 + highlightedProjects.length) % highlightedProjects.length,
+    );
   };
 
   const filteredProjects =
-    activeFilter === 'all'
+    activeFilter === "all"
       ? boardProjects
       : boardProjects.filter((p) => p.status === activeFilter);
 
   // Keyboard Accessibility (Escape Key to Close)
   useEffect(() => {
     const handleKeyDown = (e) => {
-      if (e.key === 'Escape') {
+      if (e.key === "Escape") {
         setActiveDossier(null);
       }
     };
     if (activeDossier) {
-      window.addEventListener('keydown', handleKeyDown);
+      window.addEventListener("keydown", handleKeyDown);
     }
-    return () => window.removeEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
   }, [activeDossier]);
 
   // Prevent background scroll when modal is open
   useEffect(() => {
     if (activeDossier) {
-      document.body.style.overflow = 'hidden';
+      document.body.style.overflow = "hidden";
     } else {
-      document.body.style.overflow = 'auto';
+      document.body.style.overflow = "auto";
     }
   }, [activeDossier]);
 
   return (
     <div className="projects-page-wrapper">
-      <video className="projects-galaxy" autoPlay muted playsInline loop preload="metadata" aria-hidden="true">
+      <video
+        className="projects-galaxy"
+        autoPlay
+        muted
+        playsInline
+        loop
+        preload="metadata"
+        aria-hidden="true"
+      >
         <source src="/static/assets/green_galaxy.mp4" type="video/mp4" />
       </video>
       <div className="projects-veil" aria-hidden="true"></div>
@@ -57,24 +76,23 @@ export default function Projects() {
       <Navbar />
 
       <main className="wrap">
-        <section className="intro">
-          <div className="eyebrow-row">
-            <span className="orbit-dot"></span>
-            <span className="kicker">PROJECT LOG / ACTIVE</span>
-          </div>
-          <h1>What we've built</h1>
-          <p>Experiments, instruments, and tools made by the Antariksh crew. Explore the current build archive below.</p>
-        </section>
 
         {/* Highlighted Project Stack Carousel */}
-        <section className="project-stack-section" aria-labelledby="stack-title">
-          <div className="stack-heading">
-            <span className="mono">HIGHLIGHTED TRANSMISSIONS</span>
-            <h2 id="stack-title">On the launch pad</h2>
-          </div>
-          <div className="project-stack" id="project-stack" aria-roledescription="carousel" aria-label="Highlighted projects">
+        <section
+          className="project-stack-section"
+          aria-label="Highlighted projects"
+          style={{ paddingTop: 45 }}
+        >
+          <div
+            className="project-stack"
+            id="project-stack"
+            aria-roledescription="carousel"
+            aria-label="Highlighted projects"
+          >
             {highlightedProjects.map((card, idx) => {
-              const depth = (idx - activeStackIndex + highlightedProjects.length) % highlightedProjects.length;
+              const depth =
+                (idx - activeStackIndex + highlightedProjects.length) %
+                highlightedProjects.length;
               return (
                 <article
                   key={idx}
@@ -83,7 +101,7 @@ export default function Projects() {
                   data-status={card.status}
                   data-index={idx + 1}
                   data-depth={depth}
-                  aria-hidden={depth > 2 ? 'true' : 'false'}
+                  aria-hidden={depth > 2 ? "true" : "false"}
                   onClick={nextStack}
                 >
                   <img src={card.image} alt={card.title} />
@@ -99,192 +117,303 @@ export default function Projects() {
             })}
           </div>
           <div className="stack-controls">
-            <button className="stack-arrow" id="stack-prev" type="button" aria-label="Previous highlighted project" onClick={prevStack}>
+            <button
+              className="stack-arrow"
+              id="stack-prev"
+              type="button"
+              aria-label="Previous highlighted project"
+              onClick={prevStack}
+            >
               ←
             </button>
-            <div className="stack-dots" id="stack-dots" aria-label="Choose a highlighted project">
+            <div
+              className="stack-dots"
+              id="stack-dots"
+              aria-label="Choose a highlighted project"
+            >
               {highlightedProjects.map((card, idx) => (
                 <button
                   key={idx}
                   type="button"
-                  className={idx === activeStackIndex ? 'is-active' : ''}
+                  className={idx === activeStackIndex ? "is-active" : ""}
                   aria-label={`Show ${card.title}`}
                   onClick={() => setActiveStackIndex(idx)}
                 />
               ))}
             </div>
-            <button className="stack-arrow" id="stack-next" type="button" aria-label="Next highlighted project" onClick={nextStack}>
+            <button
+              className="stack-arrow"
+              id="stack-next"
+              type="button"
+              aria-label="Next highlighted project"
+              onClick={nextStack}
+            >
               →
             </button>
           </div>
         </section>
 
         {/* Glassmorphic Category Filters (Desktop) */}
-        <div className="filters desktop-filters" style={{ gap: '12px' }}>
-          {['all', 'completed', 'ongoing', 'prototype'].map((f) => (
+        <div className="filters desktop-filters" style={{ gap: "12px" }}>
+          {["all", "completed", "ongoing", "prototype"].map((f) => (
             <button
               key={f}
-              className={`filter ${activeFilter === f ? 'is-active' : ''}`}
+              className={`filter ${activeFilter === f ? "is-active" : ""}`}
               onClick={() => setActiveFilter(f)}
               style={{
-                background: activeFilter === f ? 'rgba(255, 255, 255, 0.2)' : 'rgba(255, 255, 255, 0.05)',
-                backdropFilter: 'blur(12px)',
-                border: `1px solid rgba(255, 255, 255, ${activeFilter === f ? '0.5' : '0.15'})`,
-                color: activeFilter === f ? '#fff' : 'var(--text-dim)',
-                boxShadow: activeFilter === f ? '0 4px 15px rgba(255, 255, 255, 0.1)' : 'none',
-                transition: 'all 0.25s ease'
+                background:
+                  activeFilter === f
+                    ? "rgba(255, 255, 255, 0.2)"
+                    : "rgba(255, 255, 255, 0.05)",
+                backdropFilter: "blur(12px)",
+                border: `1px solid rgba(255, 255, 255, ${activeFilter === f ? "0.5" : "0.15"})`,
+                color: activeFilter === f ? "#fff" : "var(--text-dim)",
+                boxShadow:
+                  activeFilter === f
+                    ? "0 4px 15px rgba(255, 255, 255, 0.1)"
+                    : "none",
+                transition: "all 0.25s ease",
               }}
             >
-              {f !== 'all' && (
-                <span 
-                  className="dot" 
-                  style={{ 
-                    background: f === 'completed' ? 'var(--teal)' : f === 'ongoing' ? 'var(--coral)' : 'var(--violet)' 
+              {f !== "all" && (
+                <span
+                  className="dot"
+                  style={{
+                    background:
+                      f === "completed"
+                        ? "var(--teal)"
+                        : f === "ongoing"
+                          ? "var(--coral)"
+                          : "var(--violet)",
                   }}
                 ></span>
               )}
-              {f === 'all' ? 'All missions' : f.charAt(0).toUpperCase() + f.slice(1)}
+              {f === "all"
+                ? "All missions"
+                : f.charAt(0).toUpperCase() + f.slice(1)}
             </button>
           ))}
         </div>
 
         {/* Category Filters (Mobile Dropdown) */}
-        <div className="mobile-filters" style={{ position: 'relative', marginBottom: '30px', zIndex: 10 }}>
-           <button 
-             onClick={() => setIsFilterDropdownOpen(!isFilterDropdownOpen)}
-             style={{ 
-               width: '100%', 
-               padding: '12px 20px', 
-               background: 'rgba(255, 255, 255, 0.08)',
-               backdropFilter: 'blur(12px)',
-               border: '1px solid rgba(255, 255, 255, 0.2)',
-               color: '#fff',
-               borderRadius: '8px',
-               display: 'flex', 
-               justifyContent: 'space-between',
-               alignItems: 'center',
-               fontSize: '1rem'
-             }}
-           >
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                {activeFilter !== 'all' && (
-                  <span 
-                    style={{ 
-                      width: '8px', height: '8px', borderRadius: '50%',
-                      background: activeFilter === 'completed' ? 'var(--teal)' : activeFilter === 'ongoing' ? 'var(--coral)' : 'var(--violet)' 
-                    }}
-                  ></span>
-                )}
-                <span>{activeFilter === 'all' ? 'All missions' : activeFilter.charAt(0).toUpperCase() + activeFilter.slice(1)}</span>
-              </div>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ transform: isFilterDropdownOpen ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s' }}>
-                <path d="M6 9l6 6 6-6"/>
-              </svg>
-           </button>
-           
-           {isFilterDropdownOpen && (
-             <div style={{ 
-               position: 'absolute', 
-               top: '100%', 
-               left: 0, 
-               right: 0, 
-               marginTop: '8px', 
-               background: 'rgba(9, 9, 27, 0.98)', 
-               backdropFilter: 'blur(16px)',
-               border: '1px solid rgba(255,255,255,0.15)', 
-               borderRadius: '8px', 
-               overflow: 'hidden',
-               boxShadow: '0 8px 32px rgba(0,0,0,0.5)'
-             }}>
-               {['all', 'completed', 'ongoing', 'prototype'].map((f) => (
-                  <button 
-                    key={f} 
-                    onClick={() => { setActiveFilter(f); setIsFilterDropdownOpen(false); }}
-                    style={{ 
-                      width: '100%', 
-                      padding: '12px 20px', 
-                      textAlign: 'left', 
-                      background: activeFilter === f ? 'rgba(255,255,255,0.1)' : 'transparent', 
-                      border: 'none', 
-                      borderBottom: '1px solid rgba(255,255,255,0.05)',
-                      color: activeFilter === f ? '#fff' : 'var(--text-dim)',
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '8px',
-                      fontSize: '1rem'
-                    }}
-                  >
-                    {f !== 'all' && (
-                      <span 
-                        style={{ 
-                          width: '8px', height: '8px', borderRadius: '50%',
-                          background: f === 'completed' ? 'var(--teal)' : f === 'ongoing' ? 'var(--coral)' : 'var(--violet)' 
-                        }}
-                      ></span>
-                    )}
-                    {f === 'all' ? 'All missions' : f.charAt(0).toUpperCase() + f.slice(1)}
-                  </button>
-               ))}
-             </div>
-           )}
+        <div
+          className="mobile-filters"
+          style={{ position: "relative", marginBottom: "30px", zIndex: 10 }}
+        >
+          <button
+            onClick={() => setIsFilterDropdownOpen(!isFilterDropdownOpen)}
+            style={{
+              width: "100%",
+              padding: "12px 20px",
+              background: "rgba(255, 255, 255, 0.08)",
+              backdropFilter: "blur(12px)",
+              border: "1px solid rgba(255, 255, 255, 0.2)",
+              color: "#fff",
+              borderRadius: "8px",
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              fontSize: "1rem",
+            }}
+          >
+            <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+              {activeFilter !== "all" && (
+                <span
+                  style={{
+                    width: "8px",
+                    height: "8px",
+                    borderRadius: "50%",
+                    background:
+                      activeFilter === "completed"
+                        ? "var(--teal)"
+                        : activeFilter === "ongoing"
+                          ? "var(--coral)"
+                          : "var(--violet)",
+                  }}
+                ></span>
+              )}
+              <span>
+                {activeFilter === "all"
+                  ? "All missions"
+                  : activeFilter.charAt(0).toUpperCase() +
+                    activeFilter.slice(1)}
+              </span>
+            </div>
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              style={{
+                transform: isFilterDropdownOpen ? "rotate(180deg)" : "none",
+                transition: "transform 0.2s",
+              }}
+            >
+              <path d="M6 9l6 6 6-6" />
+            </svg>
+          </button>
+
+          {isFilterDropdownOpen && (
+            <div
+              style={{
+                position: "absolute",
+                top: "100%",
+                left: 0,
+                right: 0,
+                marginTop: "8px",
+                background: "rgba(9, 9, 27, 0.98)",
+                backdropFilter: "blur(16px)",
+                border: "1px solid rgba(255,255,255,0.15)",
+                borderRadius: "8px",
+                overflow: "hidden",
+                boxShadow: "0 8px 32px rgba(0,0,0,0.5)",
+              }}
+            >
+              {["all", "completed", "ongoing", "prototype"].map((f) => (
+                <button
+                  key={f}
+                  onClick={() => {
+                    setActiveFilter(f);
+                    setIsFilterDropdownOpen(false);
+                  }}
+                  style={{
+                    width: "100%",
+                    padding: "12px 20px",
+                    textAlign: "left",
+                    background:
+                      activeFilter === f
+                        ? "rgba(255,255,255,0.1)"
+                        : "transparent",
+                    border: "none",
+                    borderBottom: "1px solid rgba(255,255,255,0.05)",
+                    color: activeFilter === f ? "#fff" : "var(--text-dim)",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "8px",
+                    fontSize: "1rem",
+                  }}
+                >
+                  {f !== "all" && (
+                    <span
+                      style={{
+                        width: "8px",
+                        height: "8px",
+                        borderRadius: "50%",
+                        background:
+                          f === "completed"
+                            ? "var(--teal)"
+                            : f === "ongoing"
+                              ? "var(--coral)"
+                              : "var(--violet)",
+                      }}
+                    ></span>
+                  )}
+                  {f === "all"
+                    ? "All missions"
+                    : f.charAt(0).toUpperCase() + f.slice(1)}
+                </button>
+              ))}
+            </div>
+          )}
         </div>
 
         {/* Board of Projects */}
         <div className="board" id="board">
-          
           {/* Empty State Message */}
           {filteredProjects.length === 0 ? (
-            <div style={{ textAlign: 'center', padding: '60px 20px', background: 'rgba(255,255,255,0.02)', borderRadius: '16px', border: '1px dashed rgba(255,255,255,0.1)' }}>
-              <p style={{ color: 'rgba(255,255,255,0.6)', fontSize: '1.1rem', margin: 0 }}>
+            <div
+              style={{
+                textAlign: "center",
+                padding: "60px 20px",
+                background: "rgba(255,255,255,0.02)",
+                borderRadius: "16px",
+                border: "1px dashed rgba(255,255,255,0.1)",
+              }}
+            >
+              <p
+                style={{
+                  color: "rgba(255,255,255,0.6)",
+                  fontSize: "1.1rem",
+                  margin: 0,
+                }}
+              >
                 No projects in this stage yet. Check back later!
               </p>
             </div>
           ) : (
             filteredProjects.map((p, i) => (
-              
-              <div key={p.id} style={{ position: 'relative', width: '100%', maxWidth: '800px', margin: '0 auto', display: 'flex', flexDirection: 'column', height: '100%' }}>
+              <div
+                key={p.id}
+                style={{
+                  position: "relative",
+                  width: "100%",
+                  maxWidth: "800px",
+                  margin: "0 auto",
+                  display: "flex",
+                  flexDirection: "column",
+                  height: "100%",
+                }}
+              >
                 <article
                   className={`project-card project-card-${i + 1}`}
                   role="button"
                   tabIndex={0}
                   onKeyDown={(e) => {
-                    if (e.key === 'Enter' || e.key === ' ') {
+                    if (e.key === "Enter" || e.key === " ") {
                       e.preventDefault();
                       setActiveDossier(p);
                     }
                   }}
                   onClick={() => setActiveDossier(p)}
-                  style={{ gridTemplateColumns: '1fr', position: 'relative', cursor: 'pointer', flexGrow: 1 }}
+                  style={{
+                    gridTemplateColumns: "1fr",
+                    position: "relative",
+                    cursor: "pointer",
+                    flexGrow: 1,
+                  }}
                 >
                   <div className={`project-image project-image-${p.id}`}>
                     <span>{p.code}</span>
                   </div>
-                  
-                  {/* Original Gradient Card */ }
-                  <div className="project-copy" style={{ position: 'relative' }}>
-                    
+
+                  {/* Original Gradient Card */}
+                  <div
+                    className="project-copy"
+                    style={{ position: "relative", display: "flex", flexDirection: "column", height: "100%" }}
+                  >
                     {/* Eye Logo READ MORE Top Right */}
-                    <button 
+                    <button
                       style={{
-                        position: 'absolute',
-                        top: '24px',
-                        right: '32px',
-                        background: 'rgba(255, 255, 255, 0.08)',
-                        backdropFilter: 'blur(8px)',
-                        border: '1px solid rgba(255, 255, 255, 0.2)',
-                        padding: '6px 14px',
-                        borderRadius: '999px',
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '8px',
-                        color: '#fff',
-                        fontSize: '0.75rem',
+                        position: "absolute",
+                        top: "24px",
+                        right: "32px",
+                        background: "rgba(255, 255, 255, 0.08)",
+                        backdropFilter: "blur(8px)",
+                        border: "1px solid rgba(255, 255, 255, 0.2)",
+                        padding: "6px 14px",
+                        borderRadius: "999px",
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "8px",
+                        color: "#fff",
+                        fontSize: "0.75rem",
                         fontWeight: 600,
-                        letterSpacing: '1px',
-                        pointerEvents: 'none' /* Let click pass to article */
+                        letterSpacing: "1px",
+                        pointerEvents: "none", /* Let click pass to article */
                       }}
                     >
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                      <svg
+                        width="14"
+                        height="14"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      >
                         <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
                         <circle cx="12" cy="12" r="3"></circle>
                       </svg>
@@ -296,38 +425,16 @@ export default function Projects() {
                     </p>
                     <h2>{p.title}</h2>
                     <p>{p.body[0]}</p>
-                    <button className="project-open" type="button" tabIndex="-1">
+                    <button
+                      className="project-open"
+                      type="button"
+                      tabIndex="-1"
+                      style={{ marginTop: 'auto', alignSelf: 'flex-start' }}
+                    >
                       OPEN BUILD LOG <b>↗</b>
                     </button>
                   </div>
                 </article>
-
-                {/* Morphic Status Button OUTSIDE of card, bottom right corner */}
-                <div 
-                  className="project-status-pill"
-                  style={{
-                    position: 'absolute',
-                    bottom: '-32px',
-                    right: '0',
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    background: 'rgba(64, 42, 126, .9)',
-                    backdropFilter: 'blur(12px)',
-                    WebkitBackdropFilter: 'blur(12px)',
-                    border: '1px solid rgba(255, 255, 255, 0.12)',
-                    padding: '4px 12px',
-                    borderRadius: '6px',
-                    color: p.status === 'completed' ? '#c3ffef' : p.status === 'ongoing' ? '#ffd4c8' : '#ccc4ff',
-                    fontSize: '0.65rem',
-                    fontWeight: 600,
-                    letterSpacing: '1px',
-                    textTransform: 'uppercase',
-                    boxShadow: '0 4px 12px rgba(0,0,0,0.25)',
-                    pointerEvents: 'none'
-                  }}
-                >
-                  {STATUS_LABEL[p.status]}
-                </div>
               </div>
             ))
           )}
@@ -338,15 +445,27 @@ export default function Projects() {
 
       {/* Dossier Modal - Untouched CSS styling */}
       {activeDossier && (
-        <div className="dossier-backdrop is-open" onClick={() => setActiveDossier(null)}>
+        <div
+          className="dossier-backdrop is-open"
+          onClick={() => setActiveDossier(null)}
+        >
           <div className="dossier" onClick={(e) => e.stopPropagation()}>
             <div className="d-top">
               <div>
                 <div className="d-code mono">{activeDossier.code}</div>
                 <h2 className="d-title">{activeDossier.title}</h2>
               </div>
-              <button className="d-close" aria-label="Close" onClick={() => setActiveDossier(null)}>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <button
+                className="d-close"
+                aria-label="Close"
+                onClick={() => setActiveDossier(null)}
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                >
                   <path d="M6 6l12 12M18 6L6 18" />
                 </svg>
               </button>
@@ -364,8 +483,13 @@ export default function Projects() {
             <div className="d-label mono">BUILD LOG</div>
             <ul className="checklist">
               {STAGES.map((s, i) => {
-                const cls = i < activeDossier.stage ? 'done' : i === activeDossier.stage ? 'current' : '';
-                const mark = i < activeDossier.stage ? '✓' : '';
+                const cls =
+                  i < activeDossier.stage
+                    ? "done"
+                    : i === activeDossier.stage
+                      ? "current"
+                      : "";
+                const mark = i < activeDossier.stage ? "✓" : "";
                 return (
                   <li key={i} className={cls}>
                     <span className="box">{mark}</span>
@@ -379,7 +503,9 @@ export default function Projects() {
               {activeDossier.team.map((t, idx) => (
                 <div className="crew-member" key={idx}>
                   {/* Replaced full name with initials in avatar */}
-                  <span className="crew-avatar">{t.substring(0, 2).toUpperCase()}</span>
+                  <span className="crew-avatar">
+                    {t.substring(0, 2).toUpperCase()}
+                  </span>
                   {t}
                 </div>
               ))}
@@ -390,7 +516,11 @@ export default function Projects() {
                 <div className="polaroids">
                   {activeDossier.images.map((src, idx) => (
                     <div className="polaroid" key={idx}>
-                      <img src={src} alt={`Photo from ${activeDossier.title}`} loading="lazy" />
+                      <img
+                        src={src}
+                        alt={`Photo from ${activeDossier.title}`}
+                        loading="lazy"
+                      />
                     </div>
                   ))}
                 </div>

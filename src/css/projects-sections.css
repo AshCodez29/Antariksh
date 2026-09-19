@@ -69,80 +69,7 @@ body:before {
     font-size: .92rem !important
 }
 
-.project-actions {
-    grid-column: 2;
-    grid-row: 1;
-    display: grid;
-    grid-template-rows: 1fr 1fr;
-    gap: 20px
-}
 
-.project-actions>div,
-.project-article {
-    border: 1px solid #91b2cb66;
-    background: rgba(7, 24, 67, .87);
-    color: #eff6ff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    text-align: center
-}
-
-.project-actions span {
-    font: 500 1.1rem/1.25 "Space Grotesk", sans-serif
-}
-
-.project-actions b {
-    color: #91b2cb;
-    font: 600 .72rem "JetBrains Mono", monospace;
-    letter-spacing: .11em;
-    margin-top: 15px
-}
-
-.project-actions small {
-    font: .57rem "JetBrains Mono", monospace;
-    color: #cadcf0;
-    margin-top: 5px;
-    letter-spacing: .1em
-}
-
-.project-article {
-    width: 100%;
-    font: 600 1.08rem "Space Grotesk", sans-serif;
-    cursor: pointer;
-    transition: background .25s, color .25s
-}
-
-.project-article:hover {
-    background: #91b2cb;
-    color: #10152b
-}
-
-.project-crew {
-    grid-column: 1 / span 2 !important;
-    grid-row: 2;
-    display: grid !important;
-    grid-template-columns: 100px repeat(auto-fit, minmax(110px, 1fr));
-    gap: 12px;
-    padding: 22px 0 0 !important;
-    border: 0 !important;
-    background: transparent !important
-}
-
-.project-crew span {
-    align-self: center;
-    font-size: .66rem !important
-}
-
-.project-crew b {
-    width: auto !important;
-    height: 42px !important;
-    border-radius: 0 !important;
-    background: #103b93 !important;
-    color: #fff !important;
-    font-size: .7rem !important
-}
 
 .project-open {
     cursor: pointer;
@@ -195,29 +122,10 @@ body:before {
         grid-column: 1;
         grid-row: 1;
         min-height: 330px;
-        padding: 32px 26px !important
-    }
-
-    .project-actions {
-        grid-column: 1;
-        grid-row: 2;
-        grid-template-columns: 1fr 1fr;
-        grid-template-rows: 1fr;
-        gap: 12px
-    }
-
-    .project-crew {
-        grid-column: 1 !important;
-        grid-row: 3;
-        grid-template-columns: repeat(2, 1fr);
-        padding-top: 10px !important
-    }
-
-    .project-crew span {
-        grid-column: 1 / -1
-    }
-
+        padding: 32px 26px !important;
+        
     .project-copy h2 {
         font-size: 2.4rem !important
     }
+}
 }

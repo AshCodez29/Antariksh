@@ -27,7 +27,7 @@
 .project-stack {
   position: relative;
   width: min(760px, 100%);
-  height: clamp(300px, 46vw, 465px);
+  height: clamp(300px, 46vw, 400px);
   margin: 0 auto;
   perspective: 1300px;
 }
@@ -38,7 +38,7 @@
   display: grid;
   overflow: hidden;
   border: 1px solid rgba(145, 178, 203, .55);
-  border-radius: 22px;
+  border-radius: 10px;
   background: #10162e;
   cursor: pointer;
   transform-origin: center bottom;
@@ -72,7 +72,7 @@
   gap: 20px;
   min-height: 100px;
   padding: 21px 30px;
-  background: linear-gradient(90deg, rgba(27, 112, 146, .88), rgba(35, 17, 101, .91));
+  background: linear-gradient(135deg, rgba(7, 8, 43, 0.88), rgba(64, 42, 126, .9)) !important;
   backdrop-filter: blur(10px);
 }
 
