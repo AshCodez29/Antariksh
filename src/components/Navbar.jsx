@@ -61,7 +61,7 @@ export default function Navbar() {
     >
       <div className="container">
         <Link className="navbar-brand" to="/">
-          <img src="/static/assets/Antariksh_Logo.png" alt="ANTARIKSH" style={{ height: '32px', objectFit: 'contain' }} />
+          <img src="/static/assets/Antariksh_Logo.png" alt="ANTARIKSH" style={{ height: '28px', objectFit: 'contain' }} />
         </Link>
 
         <button

@@ -3,16 +3,18 @@ body:before {
     display: none !important
 }
 
-.board {
-    display: grid !important;
-    grid-template-columns: 1fr !important;
-    gap: 72px !important;
-    padding-bottom: 110px !important
+@media (max-width: 760px) {
+    .desktop-filters { display: none !important; }
+}
+@media (min-width: 761px) {
+    .mobile-filters { display: none !important; }
 }
 
-.board .project-card:first-child,
-.project-card:nth-child(4) {
-    grid-column: 1 !important
+.board {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 450px), 1fr)) !important;
+    gap: 72px 42px !important;
+    padding-bottom: 110px !important
 }
 
 .project-card,
@@ -21,12 +23,12 @@ body:before {
 .project-card:nth-child(4) {
     min-height: 0 !important;
     display: grid !important;
-    grid-template-columns: minmax(0, 1fr) 285px !important;
-    grid-template-rows: minmax(290px, auto) auto !important;
+    grid-template-columns: 1fr !important;
+    grid-template-rows: 1fr !important;
     background: transparent !important;
     border: 0 !important;
     overflow: visible !important;
-    gap: 0 22px !important;
+    gap: 0 !important;
     transform: none !important;
     box-shadow: none !important;
     cursor: default !important
@@ -143,7 +145,36 @@ body:before {
 }
 
 .project-open {
-    cursor: pointer
+    cursor: pointer;
+    background: rgba(255, 255, 255, 0.201);
+    border: 1px solid rgba(145, 178, 203, 0.4);
+    color: #eff6ff;
+    padding: 5px 12px;
+    border-radius: 4px;
+    font: 400 0.6rem "JetBrains Mono", monospace;
+    letter-spacing: 0.15em;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+}
+
+.project-open b {
+    font-size: 1.1em;
+    font-weight: normal;
+    transition: transform 0.3s ease;
+}
+
+.project-open:hover {
+    background: rgba(145, 178, 203, 0.15);
+    border-color: rgba(145, 178, 203, 0.8);
+    color: #fff;
+    box-shadow: 0 4px 15px rgba(145, 178, 203, 0.2);
+}
+
+.project-open:hover b {
+    transform: translate(3px, -3px);
 }
 
 @media(max-width:760px) {
@@ -156,8 +187,8 @@ body:before {
     .project-card:nth-child(3),
     .project-card:nth-child(4) {
         grid-template-columns: 1fr !important;
-        grid-template-rows: auto 210px auto !important;
-        gap: 12px !important
+        grid-template-rows: 1fr !important;
+        gap: 0 !important
     }
 
     .project-copy {

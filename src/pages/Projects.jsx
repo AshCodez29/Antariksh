@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { highlightedProjects, boardProjects, STAGES } from '../data/projectsData';
@@ -9,6 +9,7 @@ export default function Projects() {
   const [activeStackIndex, setActiveStackIndex] = useState(0);
   const [activeFilter, setActiveFilter] = useState('all');
   const [activeDossier, setActiveDossier] = useState(null);
+  const [isFilterDropdownOpen, setIsFilterDropdownOpen] = useState(false);
 
   const nextStack = () => {
     setActiveStackIndex((prev) => (prev + 1) % highlightedProjects.length);
@@ -22,6 +23,28 @@ export default function Projects() {
     activeFilter === 'all'
       ? boardProjects
       : boardProjects.filter((p) => p.status === activeFilter);
+
+  // Keyboard Accessibility (Escape Key to Close)
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') {
+        setActiveDossier(null);
+      }
+    };
+    if (activeDossier) {
+      window.addEventListener('keydown', handleKeyDown);
+    }
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [activeDossier]);
+
+  // Prevent background scroll when modal is open
+  useEffect(() => {
+    if (activeDossier) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+  }, [activeDossier]);
 
   return (
     <div className="projects-page-wrapper">
@@ -63,7 +86,7 @@ export default function Projects() {
                   aria-hidden={depth > 2 ? 'true' : 'false'}
                   onClick={nextStack}
                 >
-                  <img src={card.image} alt={`Placeholder image for ${card.title}`} />
+                  <img src={card.image} alt={card.title} />
                   <div className="stack-card-bar">
                     <div>
                       <span>{card.status}</span>
@@ -96,82 +119,224 @@ export default function Projects() {
           </div>
         </section>
 
-        {/* Category Filters */}
-        <div className="filters">
-          <button
-            className={`filter ${activeFilter === 'all' ? 'is-active' : ''}`}
-            onClick={() => setActiveFilter('all')}
-          >
-            All missions
-          </button>
-          <button
-            className={`filter ${activeFilter === 'completed' ? 'is-active' : ''}`}
-            onClick={() => setActiveFilter('completed')}
-          >
-            <span className="dot" style={{ background: 'var(--teal)' }}></span>Completed
-          </button>
-          <button
-            className={`filter ${activeFilter === 'ongoing' ? 'is-active' : ''}`}
-            onClick={() => setActiveFilter('ongoing')}
-          >
-            <span className="dot" style={{ background: 'var(--coral)' }}></span>Ongoing
-          </button>
-          <button
-            className={`filter ${activeFilter === 'prototype' ? 'is-active' : ''}`}
-            onClick={() => setActiveFilter('prototype')}
-          >
-            <span className="dot" style={{ background: 'var(--violet)' }}></span>Prototype
-          </button>
+        {/* Glassmorphic Category Filters (Desktop) */}
+        <div className="filters desktop-filters" style={{ gap: '12px' }}>
+          {['all', 'completed', 'ongoing', 'prototype'].map((f) => (
+            <button
+              key={f}
+              className={`filter ${activeFilter === f ? 'is-active' : ''}`}
+              onClick={() => setActiveFilter(f)}
+              style={{
+                background: activeFilter === f ? 'rgba(255, 255, 255, 0.2)' : 'rgba(255, 255, 255, 0.05)',
+                backdropFilter: 'blur(12px)',
+                border: `1px solid rgba(255, 255, 255, ${activeFilter === f ? '0.5' : '0.15'})`,
+                color: activeFilter === f ? '#fff' : 'var(--text-dim)',
+                boxShadow: activeFilter === f ? '0 4px 15px rgba(255, 255, 255, 0.1)' : 'none',
+                transition: 'all 0.25s ease'
+              }}
+            >
+              {f !== 'all' && (
+                <span 
+                  className="dot" 
+                  style={{ 
+                    background: f === 'completed' ? 'var(--teal)' : f === 'ongoing' ? 'var(--coral)' : 'var(--violet)' 
+                  }}
+                ></span>
+              )}
+              {f === 'all' ? 'All missions' : f.charAt(0).toUpperCase() + f.slice(1)}
+            </button>
+          ))}
+        </div>
+
+        {/* Category Filters (Mobile Dropdown) */}
+        <div className="mobile-filters" style={{ position: 'relative', marginBottom: '30px', zIndex: 10 }}>
+           <button 
+             onClick={() => setIsFilterDropdownOpen(!isFilterDropdownOpen)}
+             style={{ 
+               width: '100%', 
+               padding: '12px 20px', 
+               background: 'rgba(255, 255, 255, 0.08)',
+               backdropFilter: 'blur(12px)',
+               border: '1px solid rgba(255, 255, 255, 0.2)',
+               color: '#fff',
+               borderRadius: '8px',
+               display: 'flex', 
+               justifyContent: 'space-between',
+               alignItems: 'center',
+               fontSize: '1rem'
+             }}
+           >
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                {activeFilter !== 'all' && (
+                  <span 
+                    style={{ 
+                      width: '8px', height: '8px', borderRadius: '50%',
+                      background: activeFilter === 'completed' ? 'var(--teal)' : activeFilter === 'ongoing' ? 'var(--coral)' : 'var(--violet)' 
+                    }}
+                  ></span>
+                )}
+                <span>{activeFilter === 'all' ? 'All missions' : activeFilter.charAt(0).toUpperCase() + activeFilter.slice(1)}</span>
+              </div>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ transform: isFilterDropdownOpen ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s' }}>
+                <path d="M6 9l6 6 6-6"/>
+              </svg>
+           </button>
+           
+           {isFilterDropdownOpen && (
+             <div style={{ 
+               position: 'absolute', 
+               top: '100%', 
+               left: 0, 
+               right: 0, 
+               marginTop: '8px', 
+               background: 'rgba(9, 9, 27, 0.98)', 
+               backdropFilter: 'blur(16px)',
+               border: '1px solid rgba(255,255,255,0.15)', 
+               borderRadius: '8px', 
+               overflow: 'hidden',
+               boxShadow: '0 8px 32px rgba(0,0,0,0.5)'
+             }}>
+               {['all', 'completed', 'ongoing', 'prototype'].map((f) => (
+                  <button 
+                    key={f} 
+                    onClick={() => { setActiveFilter(f); setIsFilterDropdownOpen(false); }}
+                    style={{ 
+                      width: '100%', 
+                      padding: '12px 20px', 
+                      textAlign: 'left', 
+                      background: activeFilter === f ? 'rgba(255,255,255,0.1)' : 'transparent', 
+                      border: 'none', 
+                      borderBottom: '1px solid rgba(255,255,255,0.05)',
+                      color: activeFilter === f ? '#fff' : 'var(--text-dim)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '8px',
+                      fontSize: '1rem'
+                    }}
+                  >
+                    {f !== 'all' && (
+                      <span 
+                        style={{ 
+                          width: '8px', height: '8px', borderRadius: '50%',
+                          background: f === 'completed' ? 'var(--teal)' : f === 'ongoing' ? 'var(--coral)' : 'var(--violet)' 
+                        }}
+                      ></span>
+                    )}
+                    {f === 'all' ? 'All missions' : f.charAt(0).toUpperCase() + f.slice(1)}
+                  </button>
+               ))}
+             </div>
+           )}
         </div>
 
         {/* Board of Projects */}
         <div className="board" id="board">
-          {filteredProjects.map((p, i) => (
-            <article
-              key={p.id}
-              className={`project-card project-card-${i + 1}`}
-              data-id={p.id}
-              onClick={() => setActiveDossier(p)}
-            >
-              <div className={`project-image project-image-${p.id}`}>
-                <span>{p.code}</span>
-              </div>
-              <div className="project-copy">
-                <p className="project-status">
-                  {STATUS_LABEL[p.status]} / {p.code}
-                </p>
-                <h2>{p.title}</h2>
-                <p>{p.body[0]}</p>
-                <button className="project-open" type="button">
-                  OPEN BUILD LOG <b>↗</b>
-                </button>
-              </div>
-              <aside className="project-actions">
-                <div>
-                  <span>STATUS AND<br />RESOURCES</span>
-                  <b>{STATUS_LABEL[p.status].toUpperCase()}</b>
-                  <small>
-                    {p.stage + 1} / {STAGES.length} BUILD STAGES
-                  </small>
+          
+          {/* Empty State Message */}
+          {filteredProjects.length === 0 ? (
+            <div style={{ textAlign: 'center', padding: '60px 20px', background: 'rgba(255,255,255,0.02)', borderRadius: '16px', border: '1px dashed rgba(255,255,255,0.1)' }}>
+              <p style={{ color: 'rgba(255,255,255,0.6)', fontSize: '1.1rem', margin: 0 }}>
+                No projects in this stage yet. Check back later!
+              </p>
+            </div>
+          ) : (
+            filteredProjects.map((p, i) => (
+              
+              <div key={p.id} style={{ position: 'relative', width: '100%', maxWidth: '800px', margin: '0 auto', display: 'flex', flexDirection: 'column', height: '100%' }}>
+                <article
+                  className={`project-card project-card-${i + 1}`}
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      setActiveDossier(p);
+                    }
+                  }}
+                  onClick={() => setActiveDossier(p)}
+                  style={{ gridTemplateColumns: '1fr', position: 'relative', cursor: 'pointer', flexGrow: 1 }}
+                >
+                  <div className={`project-image project-image-${p.id}`}>
+                    <span>{p.code}</span>
+                  </div>
+                  
+                  {/* Original Gradient Card */ }
+                  <div className="project-copy" style={{ position: 'relative' }}>
+                    
+                    {/* Eye Logo READ MORE Top Right */}
+                    <button 
+                      style={{
+                        position: 'absolute',
+                        top: '24px',
+                        right: '32px',
+                        background: 'rgba(255, 255, 255, 0.08)',
+                        backdropFilter: 'blur(8px)',
+                        border: '1px solid rgba(255, 255, 255, 0.2)',
+                        padding: '6px 14px',
+                        borderRadius: '999px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '8px',
+                        color: '#fff',
+                        fontSize: '0.75rem',
+                        fontWeight: 600,
+                        letterSpacing: '1px',
+                        pointerEvents: 'none' /* Let click pass to article */
+                      }}
+                    >
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                        <circle cx="12" cy="12" r="3"></circle>
+                      </svg>
+                      READ MORE
+                    </button>
+
+                    <p className="project-status">
+                      {STATUS_LABEL[p.status]} / {p.code}
+                    </p>
+                    <h2>{p.title}</h2>
+                    <p>{p.body[0]}</p>
+                    <button className="project-open" type="button" tabIndex="-1">
+                      OPEN BUILD LOG <b>↗</b>
+                    </button>
+                  </div>
+                </article>
+
+                {/* Morphic Status Button OUTSIDE of card, bottom right corner */}
+                <div 
+                  className="project-status-pill"
+                  style={{
+                    position: 'absolute',
+                    bottom: '-32px',
+                    right: '0',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    background: 'rgba(64, 42, 126, .9)',
+                    backdropFilter: 'blur(12px)',
+                    WebkitBackdropFilter: 'blur(12px)',
+                    border: '1px solid rgba(255, 255, 255, 0.12)',
+                    padding: '4px 12px',
+                    borderRadius: '6px',
+                    color: p.status === 'completed' ? '#c3ffef' : p.status === 'ongoing' ? '#ffd4c8' : '#ccc4ff',
+                    fontSize: '0.65rem',
+                    fontWeight: 600,
+                    letterSpacing: '1px',
+                    textTransform: 'uppercase',
+                    boxShadow: '0 4px 12px rgba(0,0,0,0.25)',
+                    pointerEvents: 'none'
+                  }}
+                >
+                  {STATUS_LABEL[p.status]}
                 </div>
-                <button className="project-article" type="button" onClick={(e) => e.stopPropagation()}>
-                  VIEW ARTICLE
-                </button>
-              </aside>
-              <div className="project-crew">
-                <span>CREW</span>
-                {p.team.map((member, idx) => (
-                  <b key={idx}>{member}</b>
-                ))}
               </div>
-            </article>
-          ))}
+            ))
+          )}
         </div>
       </main>
 
       <Footer />
 
-      {/* Dossier Modal */}
+      {/* Dossier Modal - Untouched CSS styling */}
       {activeDossier && (
         <div className="dossier-backdrop is-open" onClick={() => setActiveDossier(null)}>
           <div className="dossier" onClick={(e) => e.stopPropagation()}>
@@ -213,7 +378,8 @@ export default function Projects() {
             <div className="crew">
               {activeDossier.team.map((t, idx) => (
                 <div className="crew-member" key={idx}>
-                  <span className="crew-avatar">{t}</span>
+                  {/* Replaced full name with initials in avatar */}
+                  <span className="crew-avatar">{t.substring(0, 2).toUpperCase()}</span>
                   {t}
                 </div>
               ))}
