@@ -1,31 +1,30 @@
 import React, { useEffect } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 
-// Import CSS
+// Import CSS directly from src/css for instant Vite HMR
 import 'bootstrap/dist/css/bootstrap.min.css';
-import '/public/static/css/styles.css';
-import '/public/static/css/theme.css';
-import '/public/static/css/additions.css';
-import '/public/static/css/navbar-fix.css';
-import '/public/static/css/navigation.css';
-import '/public/static/css/mission-accordion.css';
-import '/public/static/css/footer-extras.css';
-import '/public/static/css/placeholders.css';
-import '/public/static/css/team.css';
-import '/public/static/css/events.css';
-import '/public/static/css/event-year-layout.css';
-import '/public/static/css/event-year-adjustments.css';
-import '/public/static/css/event-orbit-final.css';
-import '/public/static/css/event-orbit-clean.css';
-import '/public/static/css/gallery.css';
-import '/public/static/css/gallery-page.css';
-import '/public/static/css/gallery-video.css';
-import '/public/static/css/gallery-filters.css';
-import '/public/static/css/gallery-palette.css';
-import '/public/static/css/apod.css';
-import '/public/static/css/projects-cards.css';
-import '/public/static/css/projects-sections.css';
-import '/public/static/css/projects-stack.css';
+import './css/styles.css';
+import './css/theme.css';
+import './css/additions.css';
+import './css/navigation.css';
+import './css/mission-accordion.css';
+import './css/footer-extras.css';
+import './css/placeholders.css';
+import './css/team.css';
+import './css/events.css';
+import './css/event-year-layout.css';
+import './css/event-year-adjustments.css';
+import './css/event-orbit-final.css';
+import './css/event-orbit-clean.css';
+import './css/gallery.css';
+import './css/gallery-page.css';
+import './css/gallery-video.css';
+import './css/gallery-filters.css';
+import './css/gallery-palette.css';
+import './css/apod.css';
+import './css/projects-cards.css';
+import './css/projects-sections.css';
+import './css/projects-stack.css';
 
 // Import Pages
 import Home from './pages/Home';

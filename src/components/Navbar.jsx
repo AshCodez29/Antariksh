@@ -1,18 +1,36 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
+import '../css/navigation.css';
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isHidden, setIsHidden] = useState(false);
   const [isNavOpen, setIsNavOpen] = useState(false);
   const [isMoreOpen, setIsMoreOpen] = useState(false);
+  const lastScrollY = useRef(0);
   const location = useLocation();
   const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 40);
+      const currentScrollY = window.scrollY;
+      
+      setIsScrolled(currentScrollY > 40);
+
+      // Hide navbar when scrolling down, show when scrolling up
+      if (currentScrollY > lastScrollY.current && currentScrollY > 100) {
+        setIsHidden(true);
+        // Also close mobile menus when scrolling down
+        setIsNavOpen(false);
+        setIsMoreOpen(false);
+      } else {
+        setIsHidden(false);
+      }
+      
+      lastScrollY.current = currentScrollY;
     };
-    window.addEventListener('scroll', handleScroll);
+    
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -38,13 +56,12 @@ export default function Navbar() {
 
   return (
     <nav
-      className={`navbar navbar-expand-lg sticky-top ${isScrolled ? 'scrolled' : ''}`}
-      style={{ position: 'sticky', top: 0, zIndex: 1000 }}
+      className={`navbar navbar-expand-lg sticky-top ${isScrolled ? 'scrolled' : ''} ${isHidden ? 'hidden' : ''}`}
       aria-label="Primary navigation"
     >
-      <div class="container">
+      <div className="container">
         <Link className="navbar-brand" to="/">
-          <span className="brand-orbit">✦</span> ANTARIKSH
+          <img src="/static/assets/Antariksh_Logo.png" alt="ANTARIKSH" style={{ height: '32px', objectFit: 'contain' }} />
         </Link>
 
         <button
@@ -61,17 +78,17 @@ export default function Navbar() {
         <div className={`collapse navbar-collapse ${isNavOpen ? 'show' : ''}`} id="nav">
           <ul className="navbar-nav ms-auto align-items-lg-center gap-lg-3">
             <li className="nav-item">
-              <NavLink className="nav-link" to="/events">
+              <NavLink className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`} to="/events">
                 Events
               </NavLink>
             </li>
             <li className="nav-item">
-              <NavLink className="nav-link" to="/gallery">
+              <NavLink className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`} to="/gallery">
                 Gallery
               </NavLink>
             </li>
             <li className="nav-item">
-              <NavLink className="nav-link" to="/projects">
+              <NavLink className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`} to="/projects">
                 Projects
               </NavLink>
             </li>
@@ -83,19 +100,30 @@ export default function Navbar() {
                 aria-expanded={isMoreOpen}
                 aria-label="Show more navigation options"
               >
-                <span></span>
-                <span></span>
-                <span></span>
+                <span>More</span>
+                <svg
+                  viewBox="0 0 24 24"
+                  width="14"
+                  height="14"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  style={{ transition: 'transform 0.25s ease', transform: isMoreOpen ? 'rotate(180deg)' : 'rotate(0deg)' }}
+                >
+                  <path d="M6 9l6 6 6-6" />
+                </svg>
               </button>
               <div className={`collapse nav-more ${isMoreOpen ? 'show' : ''}`} id="more-nav">
                 <Link to="/team" onClick={() => setIsMoreOpen(false)}>
-                  Meet Crew
+                  Meet The Crew
                 </Link>
                 <a href="#missions" onClick={(e) => handleHashClick(e, '#missions')}>
                   Missions
                 </a>
                 <a href="#signal" onClick={(e) => handleHashClick(e, '#signal')}>
-                  Signal
+                  Reach Out
                 </a>
               </div>
             </li>

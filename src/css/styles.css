@@ -42,17 +42,6 @@ body {
     transform: translate(-50%, -50%)
 }
 
-.navbar {
-    padding: 21px 0;
-    transition: .4s
-}
-
-.navbar.scrolled {
-    background: rgba(9, 9, 27, .75);
-    backdrop-filter: blur(14px);
-    padding: 12px 0
-}
-
 .navbar-brand,
 .footer-logo {
     font-family: "Space Grotesk";
@@ -62,24 +51,6 @@ body {
     font-size: 1.12rem
 }
 
-.brand-orbit {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    font-size: .85rem;
-    border: 1px solid #ffffff88;
-    width: 25px;
-    height: 25px;
-    border-radius: 50%;
-    margin-right: 7px
-}
-
-.nav-link {
-    color: #f5f1e8 !important;
-    font-size: .87rem
-}
-
-.join-pill,
 .launch-btn {
     display: inline-flex;
     gap: 13px;
@@ -91,13 +62,12 @@ body {
     font-size: .82rem;
     font-weight: 700;
     text-decoration: none;
-    transition: .25s
+    transition: .25s;
 }
 
-.join-pill:hover,
 .launch-btn:hover {
     transform: translateY(-3px);
-    box-shadow: 0 8px 25px #e9ff5750
+    box-shadow: 0 8px 25px #e9ff5750;
 }
 
 .navbar-toggler {
