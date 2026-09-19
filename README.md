@@ -1,4 +1,3 @@
-```markdown
 # ✦ ANTARIKSH
 
 Welcome to the official repository for **Antariksh**, the space and technology club of Vishwakarma Institute of Technology (VIT), Pune. 
@@ -35,20 +34,20 @@ Make sure you have Node.js installed on your local machine.
 ### Installation
 
 1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/Antariksh-Club/Antariksh.git
-   cd Antariksh
-   ```
+```bash
+git clone https://github.com/Antariksh-Club/Antariksh.git
+cd Antariksh
+```
 
 2. **Install dependencies:**
-   ```bash
-   npm install
-   ```
+```bash
+npm install
+```
 
 3. **Start the local development server:**
-   ```bash
-   npm run dev
-   ```
+```bash
+npm run dev
+```
 
 4. **Launch:** Open your browser and navigate to `http://localhost:5173/`
 
@@ -59,4 +58,4 @@ Make sure you have Node.js installed on your local machine.
 
 ---
 *Made under the same sky. © Antariksh Club.*
-```
+````
