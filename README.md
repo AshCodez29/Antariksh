@@ -1,6 +1,6 @@
 # ✦ ANTARIKSH
 
-Welcome to the official repository for **Antariksh**, astronomy club of Vishwakarma Institute of Technology (VIT), Pune. 
+Repository for **Antariksh**, the astronomy club of Vishwakarma Institute of Technology (VIT), Pune. 
 
 ## 🛠️ Tech Stack
 
