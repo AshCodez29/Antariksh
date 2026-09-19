@@ -1,0 +1,197 @@
+/* Highlighted projects: stacked card pagination inspired by an orbital deck. */
+.project-stack-section {
+  padding: 12px 0 64px;
+}
+
+.stack-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 25px;
+}
+
+.stack-heading span {
+  color: var(--project-sky);
+  font-size: .62rem;
+  letter-spacing: .15em;
+}
+
+.stack-heading h2 {
+  margin: 0;
+  color: #f3f5ff;
+  font: 500 clamp(1.45rem, 2.4vw, 2.25rem)/1 "Space Grotesk", sans-serif;
+  letter-spacing: -.06em;
+}
+
+.project-stack {
+  position: relative;
+  width: min(760px, 100%);
+  height: clamp(300px, 46vw, 465px);
+  margin: 0 auto;
+  perspective: 1300px;
+}
+
+.stack-card {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  overflow: hidden;
+  border: 1px solid rgba(145, 178, 203, .55);
+  border-radius: 22px;
+  background: #10162e;
+  cursor: pointer;
+  transform-origin: center bottom;
+  transition: transform .62s cubic-bezier(.2, .85, .25, 1), opacity .42s ease, filter .42s ease;
+  box-shadow: 0 22px 44px rgba(0, 0, 0, .46);
+}
+
+.stack-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(.68) contrast(1.08) brightness(.73);
+}
+
+.stack-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 35%, rgba(5, 9, 30, .3) 58%, rgba(7, 18, 48, .94) 100%);
+}
+
+.stack-card-bar {
+  position: absolute;
+  z-index: 1;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  min-height: 100px;
+  padding: 21px 30px;
+  background: linear-gradient(90deg, rgba(27, 112, 146, .88), rgba(35, 17, 101, .91));
+  backdrop-filter: blur(10px);
+}
+
+.stack-card-bar span {
+  display: block;
+  margin-bottom: 7px;
+  color: #b7e6ff;
+  font: 500 .56rem "JetBrains Mono", monospace;
+  letter-spacing: .13em;
+}
+
+.stack-card-bar strong {
+  display: block;
+  color: #f6f9ff;
+  font: 600 clamp(1.25rem, 2.5vw, 2.15rem)/1 "Space Grotesk", sans-serif;
+  letter-spacing: -.055em;
+}
+
+.stack-card-bar b {
+  flex: none;
+  color: #b3b4e6;
+  font: 500 .72rem "JetBrains Mono", monospace;
+  letter-spacing: .1em;
+}
+
+.stack-card[data-depth="0"] {
+  z-index: 4;
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.stack-card[data-depth="1"] {
+  z-index: 3;
+  opacity: .76;
+  transform: translateY(15px) scale(.965);
+  filter: brightness(.78);
+}
+
+.stack-card[data-depth="2"] {
+  z-index: 2;
+  opacity: .48;
+  transform: translateY(29px) scale(.93);
+  filter: brightness(.55);
+}
+
+.stack-card[data-depth="3"] {
+  z-index: 1;
+  opacity: 0;
+  transform: translateY(42px) scale(.89);
+  pointer-events: none;
+}
+
+.stack-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  margin-top: 32px;
+}
+
+.stack-arrow {
+  width: 50px;
+  height: 50px;
+  border: 1px solid rgba(145, 178, 203, .34);
+  border-radius: 50%;
+  color: #e9f2ff;
+  background: rgba(12, 16, 38, .8);
+  font-size: 1.25rem;
+  cursor: pointer;
+  transition: background .22s ease, color .22s ease, transform .22s ease;
+}
+
+.stack-arrow:hover {
+  color: #0d1732;
+  background: var(--project-sky);
+  transform: translateY(-2px);
+}
+
+.stack-dots {
+  display: flex;
+  gap: 8px;
+}
+
+.stack-dots button {
+  width: 9px;
+  height: 9px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .24);
+  cursor: pointer;
+  transition: width .25s ease, background .25s ease;
+}
+
+.stack-dots button.is-active {
+  width: 27px;
+  background: var(--project-sky);
+}
+
+@media (max-width: 600px) {
+  .project-stack-section {
+    padding-bottom: 46px;
+  }
+
+  .stack-heading {
+    align-items: start;
+    flex-direction: column;
+  }
+
+  .project-stack {
+    height: 330px;
+  }
+
+  .stack-card-bar {
+    min-height: 88px;
+    padding: 16px 18px;
+  }
+
+  .stack-card-bar b {
+    font-size: .58rem;
+  }
+}

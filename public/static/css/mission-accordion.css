@@ -1,0 +1,187 @@
+.missions .mission-list {
+    display: none
+}
+
+.mission-accordion {
+    height: 575px;
+    display: flex;
+    gap: 10px;
+    margin-top: 55px
+}
+
+.accordion-mission {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    flex: 1;
+    min-width: 0;
+    border: 1px solid #bd64ff99;
+    border-radius: 20px;
+    background: #1a052a var(--mission-image) center/cover no-repeat;
+    color: #fff;
+    cursor: pointer;
+    transition: flex .65s cubic-bezier(.2, .75, .2, 1), border-color .35s, box-shadow .35s;
+    outline: none
+}
+
+.accordion-mission:focus-visible {
+    box-shadow: 0 0 0 3px #e3a7ff
+}
+
+.accordion-mission.is-active {
+    flex: 5;
+    border-color: #d992ff;
+    box-shadow: 0 0 35px #a900ff65
+}
+
+.accordion-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(0deg, rgba(5, 0, 18, .95), rgba(10, 0, 22, .1) 72%);
+    transition: background .45s
+}
+
+.accordion-mission:not(.is-active) .accordion-overlay {
+    background: linear-gradient(0deg, rgba(8, 0, 18, .86), rgba(8, 0, 18, .5))
+}
+
+.accordion-index {
+    position: absolute;
+    top: 22px;
+    left: 22px;
+    font: 500 .65rem "DM Mono", monospace;
+    letter-spacing: .14em;
+    color: #e6b2ff
+}
+
+.accordion-copy {
+    position: absolute;
+    left: 28px;
+    right: 28px;
+    bottom: 30px;
+    transition: opacity .25s, transform .4s
+}
+
+.accordion-copy>span {
+    display: inline-block;
+    padding: 6px 10px;
+    border-radius: 999px;
+    background: #c16aff;
+    color: #23002d;
+    font: 600 .55rem "DM Mono", monospace;
+    letter-spacing: .08em
+}
+
+.accordion-copy h3 {
+    margin: 19px 0 13px;
+    font: 600 clamp(1.2rem, 2.8vw, 3rem)/.88 "Space Grotesk", sans-serif;
+    letter-spacing: -.07em;
+    white-space: nowrap
+}
+
+.accordion-copy p {
+    margin: 0;
+    max-width: 600px;
+    color: #f0dafb;
+    font-size: .82rem;
+    line-height: 1.55;
+    opacity: 0;
+    transform: translateY(13px);
+    transition: opacity .4s .16s, transform .4s .16s
+}
+
+.accordion-mission.is-active .accordion-copy p {
+    opacity: 1;
+    transform: translateY(0)
+}
+
+.accordion-symbol {
+    position: absolute;
+    right: 20px;
+    bottom: 22px;
+    color: #edb6ff;
+    font-size: 1.7rem;
+    transition: opacity .25s
+}
+
+.accordion-mission.is-active .accordion-symbol {
+    opacity: 0
+}
+
+.accordion-mission:not(.is-active) .accordion-copy {
+    bottom: 28px;
+    left: 50%;
+    right: auto;
+    width: max-content;
+    transform: translateX(-50%) rotate(-90deg);
+    transform-origin: left bottom
+}
+
+.accordion-mission:not(.is-active) .accordion-copy h3 {
+    font-size: 1rem;
+    margin: 16px 0 0
+}
+
+.accordion-mission:not(.is-active) .accordion-copy>span {
+    display: none
+}
+
+@media(max-width:767px) {
+    .mission-accordion {
+        height: auto;
+        display: grid;
+        gap: 10px;
+        margin-top: 35px
+    }
+
+    .accordion-mission,
+    .accordion-mission.is-active {
+        height: 145px;
+        flex: auto
+    }
+
+    .accordion-mission.is-active {
+        height: 370px
+    }
+
+    .accordion-mission:not(.is-active) .accordion-copy {
+        left: 20px;
+        bottom: 16px;
+        transform: none;
+        width: auto
+    }
+
+    .accordion-mission:not(.is-active) .accordion-copy h3 {
+        font-size: 1.35rem
+    }
+
+    .accordion-index {
+        top: 15px;
+        left: 17px
+    }
+
+    .accordion-copy {
+        left: 20px;
+        right: 20px;
+        bottom: 22px
+    }
+
+    .accordion-copy h3 {
+        font-size: 2rem
+    }
+
+    .accordion-symbol {
+        right: 16px;
+        bottom: 16px
+    }
+}
+
+@media(prefers-reduced-motion:reduce) {
+
+    .accordion-mission,
+    .accordion-copy,
+    .accordion-copy p {
+        transition: none
+    }
+}

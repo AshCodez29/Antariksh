@@ -1,0 +1,86 @@
+/* Keep the primary navigation at the top of the document, before the hero. */
+.navbar {
+  position: relative;
+  z-index: 30;
+  min-height: 82px;
+  background: rgba(9, 9, 27, .94);
+  backdrop-filter: blur(14px);
+}
+
+.navbar.scrolled {
+  padding: 21px 0;
+}
+
+.nav-more-wrap {
+  position: relative;
+}
+
+.nav-more-toggle {
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 42px;
+  height: 42px;
+  padding: 0 8px;
+  border: 1px solid rgba(255, 255, 255, .38);
+  border-radius: 50%;
+  background: transparent;
+}
+
+.nav-more-toggle span {
+  display: block;
+  width: 100%;
+  height: 1px;
+  background: #fff;
+}
+
+.nav-more {
+  position: absolute;
+  top: calc(100% + 12px);
+  right: 0;
+  width: 150px;
+  padding: 10px;
+  border: 1px solid rgba(255, 255, 255, .16);
+  border-radius: 10px;
+  background: rgba(9, 9, 27, .98);
+  box-shadow: 0 14px 35px rgba(0, 0, 0, .3);
+}
+
+.nav-more a {
+  display: block;
+  padding: 9px 10px;
+  color: #f5f1e8;
+  font-size: .87rem;
+  text-decoration: none;
+}
+
+.nav-more a:hover {
+  color: var(--acid);
+}
+
+@media (min-width: 992px) {
+  .mobile-nav-toggle {
+    display: none;
+  }
+}
+
+@media (max-width: 991px) {
+  .navbar {
+    min-height: 76px;
+  }
+
+  .nav-more-wrap {
+    width: 100%;
+  }
+
+  .nav-more-toggle {
+    margin: 4px 0;
+  }
+
+  .nav-more {
+    position: static;
+    width: 100%;
+    margin-top: 7px;
+  }
+}

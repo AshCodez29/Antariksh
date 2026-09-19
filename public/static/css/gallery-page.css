@@ -1,0 +1,176 @@
+.gallery-page {
+  background: #d8e4e4;
+}
+
+.gallery-nav {
+  background: linear-gradient(#09091bd9, transparent);
+}
+
+.back-home {
+  color: #f5f1e8;
+  text-decoration: none;
+  font:
+    500 0.69rem "DM Mono",
+    monospace;
+  letter-spacing: 0.08em;
+}
+
+.back-home:hover {
+  color: #e9ff57;
+}
+
+.gallery-hero {
+  height: min(100svh, 900px);
+  min-height: 620px;
+  background: #151a2a;
+  position: relative;
+  color: #f5f1e8;
+  overflow: hidden;
+}
+
+.gallery-hero>img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(0.7);
+}
+
+.gallery-hero-veil {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg,
+      rgba(9, 9, 27, 0.76),
+      rgba(9, 9, 27, 0.16) 50%,
+      #09091b 100%);
+}
+
+.gallery-hero-copy {
+  position: relative;
+  z-index: 2;
+  padding-top: 30vh;
+}
+
+.gallery-hero-copy .kicker {
+  color: #e9ff57;
+}
+
+.gallery-hero-copy h1 {
+  font:
+    600 clamp(4.5rem, 10vw, 10rem)/0.77 "Space Grotesk",
+    sans-serif;
+  letter-spacing: -0.1em;
+  margin: 0;
+}
+
+.gallery-hero-copy h1 em {
+  font-family: Outfit, sans-serif;
+  font-weight: 400;
+}
+
+.gallery-hero-copy>p:not(.kicker) {
+  font-size: 1rem;
+  line-height: 1.5;
+  max-width: 375px;
+  margin: 31px 0;
+}
+
+.explore-link {
+  color: #fff;
+  text-decoration: none;
+  font:
+    500 0.7rem "DM Mono",
+    monospace;
+  letter-spacing: 0.1em;
+}
+
+.explore-link b {
+  font-size: 1.3rem;
+  margin-left: 8px;
+}
+
+.hero-ring {
+  position: absolute;
+  right: -16vw;
+  bottom: -14vw;
+  border: 1px solid #ffffff70;
+  border-radius: 50%;
+  width: 55vw;
+  height: 55vw;
+  display: grid;
+  place-items: start;
+  padding: 11%;
+  font-size: 2rem;
+  color: #e9ff57;
+  z-index: 1;
+}
+
+.gallery-page-content {
+  padding: 140px 0;
+}
+
+.gallery-page-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 40px;
+  margin-bottom: 65px;
+}
+
+.gallery-page-heading h2 {
+  font:
+    700 clamp(3.5rem, 7vw, 7.2rem)/0.82 "Space Grotesk",
+    sans-serif;
+  letter-spacing: -0.09em;
+  margin: 0;
+}
+
+.gallery-page-heading>p {
+  max-width: 370px;
+  margin: 0;
+  line-height: 1.5;
+  font-size: 1.04rem;
+}
+
+@media (max-width: 767px) {
+  .gallery-hero-copy {
+    padding-top: 29vh;
+  }
+
+  .gallery-hero {
+    min-height: 600px;
+  }
+
+  .gallery-hero-veil {
+    background: linear-gradient(0deg, #09091bcc, transparent 70%);
+  }
+
+  .gallery-hero-copy h1 {
+    font-size: 4.4rem;
+  }
+
+  .hero-ring {
+    width: 95vw;
+    height: 95vw;
+    right: -40vw;
+    bottom: 8vw;
+  }
+
+  .gallery-page-content {
+    padding: 95px 0;
+  }
+
+  .gallery-page-heading {
+    display: block;
+    margin-bottom: 42px;
+  }
+
+  .gallery-page-heading>p {
+    margin-top: 28px;
+  }
+
+  .back-home {
+    font-size: 0.58rem;
+  }
+}

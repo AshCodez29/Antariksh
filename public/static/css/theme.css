@@ -1,0 +1,137 @@
+:root {
+  --ink: #210035;
+  --paper: #eedfff;
+  --acid: #bf69ff;
+  --blue: #d6a7ff;
+  --coral: #a800f8;
+  --deep: #4b0072;
+  --mid: #7a00b5;
+}
+
+.cursor-glow {
+  background: radial-gradient(circle, rgb(191 105 255 / .22), transparent 65%);
+}
+
+.navbar.scrolled {
+  background: rgb(33 0 53 / .86);
+}
+
+.hero {
+  background: var(--ink);
+}
+
+.hero-shade {
+  background: linear-gradient(105deg, rgb(33 0 53 / .9) 5%, rgb(75 0 114 / .28) 60%, rgb(33 0 53 / .72)), linear-gradient(0deg, rgb(33 0 53 / .7), transparent 40%);
+}
+
+.kicker {
+  color: #6c328e;
+  font-size: larger;
+}
+
+.mission-stamp:before {
+  border-color: var(--ink);
+}
+
+.mono {
+  color: #d6a7ff;
+}
+
+.mission-card p {
+  color: #e8caff;
+}
+
+.mission-card:hover p {
+  color: var(--ink);
+}
+
+.mission-card:hover .card-tag {
+  color: #4b0072;
+}
+
+.stat-card {
+  background: var(--blue);
+}
+
+.quote-section {
+  background: var(--mid);
+}
+
+.signal-panel {
+  background: var(--deep);
+}
+
+.signal-panel:before {
+  border-color: rgb(214 167 255 / .55);
+  box-shadow: 0 0 0 55px rgb(214 167 255 / .08), 0 0 0 110px rgb(214 167 255 / .06);
+}
+
+.signal-static {
+  background: repeating-radial-gradient(ellipse at 80% 50%, transparent 0 14px, var(--blue) 15px 16px);
+}
+
+footer {
+  background: var(--ink);
+}
+
+.gallery-page,
+.flight-log {
+  background: var(--paper);
+  color: var(--ink);
+}
+
+.gallery-nav {
+  background: linear-gradient(rgb(33 0 53 / .9), transparent);
+}
+
+.gallery-hero {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.gallery-hero-veil {
+  background: linear-gradient(90deg, rgba(10, 10, 10, 0.8), rgb(75 0 114 / .2) 50%, var(--ink) 100%);
+}
+
+.gallery-hero-copy .kicker,
+.back-home:hover,
+.featured-caption span,
+.glass-orbit span,
+.tile-caption span {
+  color: var(--acid);
+}
+
+.gallery-line {
+  border-color: rgb(33 0 53 / .35);
+  color: #65327c;
+}
+
+.featured-frame {
+  background: var(--deep);
+}
+
+.featured-veil {
+  background: linear-gradient(90deg, rgb(33 0 53 / .08) 28%, rgb(33 0 53 / .22) 42%, rgb(33 0 53 / .92) 67%, var(--ink) 100%);
+}
+
+.event-tile {
+  background: var(--blue);
+}
+
+.event-tile:after {
+  background: linear-gradient(0deg, rgb(33 0 53 / .92), transparent 62%);
+}
+
+@media (max-width: 767px) {
+  .gallery-hero-veil {
+    background: linear-gradient(0deg, rgb(33 0 53 / .86), transparent 70%);
+  }
+
+  .featured-veil {
+    background: linear-gradient(0deg, var(--ink) 3%, rgb(33 0 53 / .55) 55%, transparent);
+  }
+
+  .navbar-collapse {
+    background: rgb(33 0 53 / .94);
+  }
+}
