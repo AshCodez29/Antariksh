@@ -8,7 +8,6 @@ import './css/theme.css';
 import './css/additions.css';
 import './css/navigation.css';
 import './css/mission-accordion.css';
-import './css/footer-extras.css';
 import './css/placeholders.css';
 import './css/team.css';
 import './css/events.css';

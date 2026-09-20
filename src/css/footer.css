@@ -1,0 +1,67 @@
+﻿/* 
+  Ultra-Compact Minimal Footer 
+*/
+
+.footer-compact {
+  background: var(--bg);
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 25px 20px 25px;
+  display: flex;
+  justify-content: center;
+  margin-top: auto;
+}
+
+.footer-compact-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+.footer-compact-logo {
+  height: 25px;
+  width: auto;
+  opacity: 0.8;
+  margin-bottom: 10px;
+  transition: opacity 0.2s;
+}
+
+.footer-compact-logo:hover {
+  opacity: 1;
+}
+
+.footer-compact-socials {
+  display: flex;
+  gap: 15px;
+}
+
+.footer-compact-socials a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #fff;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+}
+
+.footer-compact-socials svg {
+  width: 18px;
+  height: 18px;
+}
+
+.footer-compact-socials a:hover {
+  background:  #4f7fd1;
+  color: #000;
+  transform: translateY(-2px);
+}
+
+.footer-compact-copy {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.5rem;
+  color: #64748b;
+  margin-top: 10px;
+}
