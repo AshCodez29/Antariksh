@@ -168,26 +168,11 @@ export default function Projects() {
                 backdropFilter: "blur(12px)",
                 border: `1px solid rgba(255, 255, 255, ${activeFilter === f ? "0.5" : "0.15"})`,
                 color: activeFilter === f ? "#fff" : "var(--text-dim)",
-                boxShadow:
-                  activeFilter === f
-                    ? "0 4px 15px rgba(255, 255, 255, 0.1)"
-                    : "none",
                 transition: "all 0.25s ease",
+                padding: "4px 16px",
               }}
             >
-              {f !== "all" && (
-                <span
-                  className="dot"
-                  style={{
-                    background:
-                      f === "completed"
-                        ? "var(--teal)"
-                        : f === "ongoing"
-                          ? "var(--coral)"
-                          : "var(--violet)",
-                  }}
-                ></span>
-              )}
+              
               {f === "all"
                 ? "All missions"
                 : f.charAt(0).toUpperCase() + f.slice(1)}
@@ -217,21 +202,7 @@ export default function Projects() {
             }}
           >
             <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-              {activeFilter !== "all" && (
-                <span
-                  style={{
-                    width: "8px",
-                    height: "8px",
-                    borderRadius: "50%",
-                    background:
-                      activeFilter === "completed"
-                        ? "var(--teal)"
-                        : activeFilter === "ongoing"
-                          ? "var(--coral)"
-                          : "var(--violet)",
-                  }}
-                ></span>
-              )}
+              
               <span>
                 {activeFilter === "all"
                   ? "All missions"
@@ -295,21 +266,7 @@ export default function Projects() {
                     fontSize: "1rem",
                   }}
                 >
-                  {f !== "all" && (
-                    <span
-                      style={{
-                        width: "8px",
-                        height: "8px",
-                        borderRadius: "50%",
-                        background:
-                          f === "completed"
-                            ? "var(--teal)"
-                            : f === "ongoing"
-                              ? "var(--coral)"
-                              : "var(--violet)",
-                      }}
-                    ></span>
-                  )}
+                  
                   {f === "all"
                     ? "All missions"
                     : f.charAt(0).toUpperCase() + f.slice(1)}
@@ -532,3 +489,4 @@ export default function Projects() {
     </div>
   );
 }
+

@@ -230,14 +230,9 @@
     transition: .35s
 }
 
-.event-tile:hover img {
-    transform: scale(1.1) rotate(-1deg);
-    filter: saturate(1.12)
-}
+.event-tile:hover img { }
 
-.event-tile:hover:after {
-    opacity: 1
-}
+.event-tile:hover:after { }
 
 .tile-caption {
     position: absolute;
@@ -250,7 +245,7 @@
     transition: .35s
 }
 
-.event-tile:hover .tile-caption {
+.event-tile:hover { outline: 1px solid rgba(255,255,255,0.3); outline-offset: -1px; } .event-tile:hover .tile-caption {
     opacity: 1;
     transform: translateY(0)
 }
