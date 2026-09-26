@@ -1,13 +1,51 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { useReveal } from '../hooks/useReveal';
-import { teamMembers } from '../data/teamData';
+import { supabase } from '../lib/supabaseClient';
 
 export default function Home() {
   useReveal();
   const [activeAccordion, setActiveAccordion] = useState(0);
+  const [crewMembers, setCrewMembers] = useState([]);
+  const [isLoadingCrew, setIsLoadingCrew] = useState(true);
+
+  useEffect(() => {
+    async function fetchHomeCrew() {
+      try {
+        setIsLoadingCrew(true);
+        const { data, error } = await supabase
+          .from('Member')
+          .select('*')
+          .eq('isAlumni', false)
+          .order('displayOrder', { ascending: true, nullsFirst: false })
+          .order('name', { ascending: true });
+
+        if (error) {
+          console.error('Error fetching home crew from Supabase:', error);
+        } else if (data) {
+          const sorted = [...data].sort((a, b) => {
+            const orderA = a.displayOrder !== null && a.displayOrder !== undefined ? Number(a.displayOrder) : Infinity;
+            const orderB = b.displayOrder !== null && b.displayOrder !== undefined ? Number(b.displayOrder) : Infinity;
+            if (orderA !== orderB) {
+              return orderA - orderB;
+            }
+            return (a.name || '').localeCompare(b.name || '');
+          });
+          setCrewMembers(sorted.slice(0, 4));
+        }
+      } catch (err) {
+        console.error('Failed to query Member table for home section:', err);
+      } finally {
+        setIsLoadingCrew(false);
+      }
+    }
+
+    fetchHomeCrew();
+  }, []);
+
+  const FALLBACK_AVATAR = 'https://images.unsplash.com/photo-1531058020387-3be344556be6?auto=format&fit=crop&w=1000&q=80';
 
   const missions = [
     {
@@ -204,21 +242,33 @@ export default function Home() {
               <h2>The people<br /><em>behind the orbit.</em></h2>
               <p>Different disciplines, one shared pull toward the sky.</p>
             </div>
-            <div className="member-deck">
-              {teamMembers.slice(0, 4).map((member, idx) => (
-                <article className="member-card reveal" key={member.id}>
-                  <div className="member-image">
-                    <img src={member.image} alt={member.alt} />
-                    <span>{member.symbol}</span>
-                  </div>
-                  <div className="member-copy">
-                    <p>CREW / {member.id}</p>
-                    <h3 dangerouslySetInnerHTML={{ __html: member.name.replace('\n', '<br/>') }}></h3>
-                    <span>{member.role}</span>
-                  </div>
-                </article>
-              ))}
-            </div>
+
+            {isLoadingCrew ? (
+              <div style={{ textAlign: 'center', padding: '40px 20px', color: 'rgba(255,255,255,0.6)', fontFamily: '"DM Mono", monospace' }}>
+                LOADING CREW MANIFEST...
+              </div>
+            ) : crewMembers.length === 0 ? (
+              <div style={{ textAlign: 'center', padding: '40px 20px', color: 'rgba(255,255,255,0.4)', fontFamily: '"DM Mono", monospace' }}>
+                NO ACTIVE CREW MEMBERS FOUND IN DATABASE.
+              </div>
+            ) : (
+              <div className="member-deck">
+                {crewMembers.map((member, idx) => (
+                  <article className="member-card reveal" key={member.id || member.slug}>
+                    <div className="member-image">
+                      <img src={member.avatarImageUrl || FALLBACK_AVATAR} alt={member.name} />
+                      <span>✦</span>
+                    </div>
+                    <div className="member-copy">
+                      <p>CREW / {String(idx + 1).padStart(3, '0')}</p>
+                      <h3 dangerouslySetInnerHTML={{ __html: (member.name || '').replace('\n', '<br/>') }}></h3>
+                      <span>{member.role || 'MEMBER'}</span>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            )}
+
             <div className="members-more reveal">
               <Link className="members-more-link" to="/team">
                 View all crew <span>↗</span>

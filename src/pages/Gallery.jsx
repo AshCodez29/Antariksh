@@ -22,10 +22,16 @@ export default function Gallery() {
       .catch(() => {});
   }, []);
 
+  const formatDate = (isoString) => {
+    if (!isoString) return '';
+    const d = new Date(isoString);
+    return isNaN(d.getTime()) ? isoString : d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }).toUpperCase();
+  };
+
   const filteredMemories =
     selectedFilter === 'all'
       ? galleryMemories
-      : galleryMemories.filter((mem) => mem[3] === selectedFilter);
+      : galleryMemories.filter((mem) => mem.category === selectedFilter);
 
   const getApodPageUrl = (data) =>
     `https://apod.nasa.gov/apod/ap${data.date.replaceAll('-', '').slice(2)}.html`;
@@ -244,15 +250,15 @@ export default function Gallery() {
             <div id="event-grid" className="event-grid">
               {filteredMemories.map((item, idx) => (
                 <article
-                  key={idx}
+                  key={item.id || idx}
                   className="event-tile in-view"
-                  data-event-type={item[3]}
+                  data-event-type={item.category}
                   style={{ transitionDelay: `${(idx % 4) * 80}ms` }}
                 >
-                  <img src={item[0]} alt={item[1]} loading="lazy" />
+                  <img src={item.mediaImageUrl} alt={item.caption} loading="lazy" />
                   <div className="tile-caption" style={{ opacity: 1 }}>
-                    <strong>{item[1]}</strong>
-                    <span>{item[2]}</span>
+                    <strong>{item.caption}</strong>
+                    <span>{formatDate(item.takenDate)}</span>
                   </div>
                 </article>
               ))}
@@ -275,14 +281,14 @@ export default function Gallery() {
             <div id="astro-grid" className="event-grid astro-grid">
               {astroPhotos.map((photo, idx) => (
                 <article
-                  key={idx}
+                  key={photo.id || idx}
                   className="event-tile in-view"
                   style={{ transitionDelay: `${(idx % 4) * 80}ms` }}
                 >
-                  <img src={photo[0]} alt={photo[1]} loading="lazy" />
+                  <img src={photo.mediaImageUrl} alt={photo.caption} loading="lazy" />
                   <div className="tile-caption" style={{ opacity: 1 }}>
-                    <strong>{photo[1]}</strong>
-                    <span>{photo[2]}</span>
+                    <strong>{photo.caption}</strong>
+                    <span>{photo.tagline}</span>
                   </div>
                 </article>
               ))}
@@ -327,5 +333,3 @@ export default function Gallery() {
     </div>
   );
 }
-
-

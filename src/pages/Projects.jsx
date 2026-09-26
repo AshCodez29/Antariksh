@@ -95,19 +95,19 @@ export default function Projects() {
                 highlightedProjects.length;
               return (
                 <article
-                  key={idx}
+                  key={card.id || idx}
                   className="stack-card"
                   data-title={card.title}
-                  data-status={card.status}
+                  data-status={card.statusLabel || card.status}
                   data-index={idx + 1}
                   data-depth={depth}
                   aria-hidden={depth > 2 ? "true" : "false"}
                   onClick={nextStack}
                 >
-                  <img src={card.image} alt={card.title} />
+                  <img src={card.coverImageUrl || card.image} alt={card.title} />
                   <div className="stack-card-bar">
                     <div>
-                      <span>{card.status}</span>
+                      <span>{card.statusLabel || card.status}</span>
                       <strong>{card.title}</strong>
                     </div>
                     <b>{card.index}</b>
@@ -133,7 +133,7 @@ export default function Projects() {
             >
               {highlightedProjects.map((card, idx) => (
                 <button
-                  key={idx}
+                  key={card.id || idx}
                   type="button"
                   className={idx === activeStackIndex ? "is-active" : ""}
                   aria-label={`Show ${card.title}`}
@@ -381,7 +381,7 @@ export default function Projects() {
                       {STATUS_LABEL[p.status]} / {p.code}
                     </p>
                     <h2>{p.title}</h2>
-                    <p>{p.body[0]}</p>
+                    <p>{Array.isArray(p.body) ? p.body[0] : p.description}</p>
                     <button
                       className="project-open"
                       type="button"
@@ -433,9 +433,11 @@ export default function Projects() {
               </span>
             </div>
             <div className="d-body">
-              {activeDossier.body.map((t, idx) => (
-                <p key={idx}>{t}</p>
-              ))}
+              {Array.isArray(activeDossier.body) ? (
+                activeDossier.body.map((t, idx) => <p key={idx}>{t}</p>)
+              ) : (
+                <p>{activeDossier.description}</p>
+              )}
             </div>
             <div className="d-label mono">BUILD LOG</div>
             <ul className="checklist">
@@ -489,4 +491,3 @@ export default function Projects() {
     </div>
   );
 }
-

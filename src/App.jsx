@@ -11,6 +11,7 @@ import './css/mission-accordion.css';
 import './css/placeholders.css';
 import './css/team.css';
 import './css/events.css';
+import './css/events-archive.css';
 import './css/event-year-layout.css';
 import './css/event-year-adjustments.css';
 import './css/event-orbit-final.css';
@@ -63,3 +64,6 @@ export default function App() {
     </>
   );
 }
+
+
+

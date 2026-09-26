@@ -1,0 +1,309 @@
+// ANTARIKSH — DATABASE SCHEMA
+// PostgreSQL via Supabase + Prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+// ==========================================
+// ENUMS
+// ==========================================
+
+enum AcademicYear {
+  FY
+  SY
+  TY
+  BTech
+}
+
+enum Domain {
+  ASTRONOMY
+  DEV
+  DESIGN
+  OUTREACH
+  MANAGEMENT
+}
+
+enum Role {
+  ADMIN
+  CORE_TEAM
+  VOLUNTEER
+  MEMBER
+}
+
+enum EventType {
+  STARGAZING
+  WORKSHOP
+  GUEST_LECTURE
+  OUTREACH
+  TECHNICAL_VISIT
+}
+
+enum ArchiveCategory {
+  RESEARCH_PAPER
+  TECHNICAL_REPORT
+  SESSION_MINUTES
+  NEWSLETTER
+  PRESENTATION_SLIDES
+}
+
+enum ProjectStatus {
+  COMPLETED
+  ONGOING
+}
+
+enum ApplicationStatus {
+  PENDING
+  SHORTLISTED
+  INTERVIEW_SCHEDULED
+  ACCEPTED
+  REJECTED
+  WAITLISTED
+}
+
+enum RegistrationStatus {
+  CONFIRMED
+  WAITLISTED
+  CANCELLED
+  ATTENDED
+}
+
+enum PaymentStatus {
+  FREE
+  PENDING
+  PAID
+  REFUNDED
+}
+
+// ==========================================
+// MODELS
+// ==========================================
+
+// 1. Member
+model Member {
+  id                   String                  @id @default(uuid())
+  name                 String
+  slug                 String                  @unique
+  email                String                  @unique
+  authId               String?                 @unique // Links to Supabase auth.users.id
+  avatarImageUrl       String?
+  department           String
+  academicYear         AcademicYear?
+  domain               Domain
+  role                 Role                    @default(MEMBER)
+  isAlumni             Boolean                 @default(false)
+  passoutYear          Int?
+  currentCompany       String?
+  designation          String?
+  linkedinUrl          String?
+  githubUrl            String?
+  instagramUrl         String?
+  bio                  String?                 @db.Text
+  joinedAt             DateTime                @default(now())
+  createdAt            DateTime                @default(now())
+  updatedAt            DateTime                @updatedAt
+
+  // Reverse relations
+  archiveResources     ArchiveResource[]
+  reviewedApplications RecruitmentApplication[]
+  projectContributions ProjectContributor[]
+
+  @@index([isAlumni])
+  @@index([slug])
+}
+
+// 2. Landing Page - HeroBanner
+model HeroBanner {
+  id             String   @id @default(uuid())
+  title          String
+  tagline        String
+  bannerImageUrl String
+  actionLabel    String
+  actionUrl      String
+  priority       Int
+  isActive       Boolean  @default(true)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  @@index([priority, isActive])
+  @@index([isActive])
+}
+
+// 3. Events Page - Event
+model Event {
+  id                     String              @id @default(uuid())
+  slug                   String              @unique
+  title                  String
+  eventType              EventType
+  summary                String
+  agenda                 String?             @db.Text
+  bannerImageUrl         String
+  venue                  String
+  startDate              DateTime
+  endDate                DateTime?           // Nullable for single-session / TBD end times
+  registrationUrl        String?
+  capacity               Int?
+  registrationQrImageUrl String?
+  momContent             String?             @db.Text
+  slidesUrl              String?
+  resourceLinks          Json?
+  metaDescription        String?
+  ogImageUrl             String?
+  createdAt              DateTime            @default(now())
+  updatedAt              DateTime            @updatedAt
+
+  // Relations
+  photos                 GalleryMedia[]
+  registrations          EventRegistration[]
+
+  @@index([startDate])
+  @@index([slug])
+}
+
+// 4. Gallery Page - GalleryMedia
+model GalleryMedia {
+  id            String    @id @default(uuid())
+  mediaImageUrl String
+  caption       String?   @db.Text
+  takenDate     DateTime?
+  hashtags      String[]
+  isFeatured    Boolean   @default(false)
+  eventId       String?
+  event         Event?    @relation(fields: [eventId], references: [id], onDelete: SetNull)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  @@index([isFeatured])
+  @@index([takenDate])
+}
+
+// 5. Archives Page - ArchiveResource (Category 1: Research & Documentation)
+model ArchiveResource {
+  id              String          @id @default(uuid())
+  title           String
+  category        ArchiveCategory
+  description     String?         @db.Text
+  fileUrl         String
+  publicationDate DateTime
+  tags            String[]
+  authorId        String?
+  author          Member?         @relation(fields: [authorId], references: [id], onDelete: SetNull)
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+
+  @@index([category])
+  @@index([publicationDate])
+}
+
+// 5. Archives Page - Project (Category 2: Historical & Project Logs)
+model Project {
+  id            String               @id @default(uuid())
+  title         String
+  slug          String               @unique
+  description   String?              @db.Text
+  coverImageUrl String
+  status        ProjectStatus
+  reportUrl     String?
+  isHighlighted Boolean              @default(false)
+  createdAt     DateTime             @default(now())
+  updatedAt     DateTime             @updatedAt
+
+  contributors  ProjectContributor[]
+
+  @@index([status])
+  @@index([isHighlighted])
+  @@index([slug])
+}
+
+// Model: ProjectContributor (Join table)
+model ProjectContributor {
+  id            String   @id @default(uuid())
+  projectId     String
+  project       Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  memberId      String
+  member        Member   @relation(fields: [memberId], references: [id], onDelete: Cascade)
+  roleInProject String   // e.g. "Lead", "Contributor", "Advisor"
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@unique([projectId, memberId])
+  @@index([memberId])
+  @@index([projectId])
+}
+
+// 6. Recruitment Portal - RecruitmentApplication
+model RecruitmentApplication {
+  id               String            @id @default(uuid())
+  name             String
+  vitEmail         String
+  phone            String
+  branch           String
+  academicYear     AcademicYear
+  interests        String            @db.Text
+  domainPreference Domain?
+  cycle            String            // e.g. "2026-ODD"
+  status           ApplicationStatus @default(PENDING)
+  interviewSlot    DateTime?
+  reviewedById     String?
+  reviewedBy       Member?           @relation(fields: [reviewedById], references: [id], onDelete: SetNull)
+  appliedAt        DateTime          @default(now())
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+
+  @@unique([vitEmail, cycle])
+}
+
+// 8. Announcements
+model Announcement {
+  id             String    @id @default(uuid())
+  title          String
+  body           String    @db.Text
+  coverImageUrl  String?
+  isPublished    Boolean   @default(false)
+  publishedAt    DateTime?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  @@index([isPublished, publishedAt])
+}
+
+// 9. Reach Out Section - SiteSettings (Singleton)
+model SiteSettings {
+  id           Int      @id @default(1) // Hardcoded default to 1 for true singleton
+  contactEmail String
+  phone        String?
+  instagramUrl String?
+  linkedinUrl  String?
+  twitterUrl   String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+// 10. Event Registrations - EventRegistration
+model EventRegistration {
+  id                   String             @id @default(uuid())
+  eventId              String
+  event                Event              @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  fullName             String
+  email                String
+  phone                String
+  collegeOrOrg         String
+  status               RegistrationStatus @default(CONFIRMED)
+  qrCodeImageUrl       String?
+  paymentStatus        PaymentStatus      @default(FREE)
+  transactionId        String?
+  refundAmount         Decimal?           @db.Decimal(10, 2)
+  refundedAt           DateTime?
+  customResponses      Json?
+  registeredAt         DateTime           @default(now())
+  createdAt            DateTime           @default(now())
+  updatedAt            DateTime           @updatedAt
+
+  @@unique([eventId, email])
+}
